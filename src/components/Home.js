@@ -1,22 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
-import active from '../functions/active'
 import { banners } from '../json/banner'
 
 const Character = () => {
-    useEffect(() => {
-        fetch('http://localhost/server/cookie.php', {
-            credentials: 'include'
-        })
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(e => console.log(e))
-
-        document.title = "Genshin Impact - Home"
-        active('Home')
-    }, [])
+    const [name,setName]= useState(null);
 
     return (
         <div className='home__container'>
@@ -24,6 +13,8 @@ const Character = () => {
                 <FontAwesomeIcon className='text-2xl lightcolor' icon={faHome} />
                 <h1 className="page__title lightcolor text-4xl font-bold text-center sm:text-left group">
                     Home Page <span className="hidden group-hover:inline">#</span>
+                    <br />
+                    Hello {name === null ? 'Guest' : name}
                 </h1>
             </div>
 

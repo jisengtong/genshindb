@@ -65,7 +65,7 @@ const Home = () => {
                 setErr('Error loading Character Data. Try Again Later.')
             }
         )
-        setLoading(false)
+        setLoading(false);
     }
 
     function searchCharacter() {

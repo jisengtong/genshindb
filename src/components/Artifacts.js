@@ -61,11 +61,10 @@ const Artifacts = () => {
 
     function searchArtifacts() {
         setSearched([])
-        let query = searchArti.current.value.toLowerCase()
+        let query = searchArti.current.value.toLowerCase();
+        if (query === "") return;
 
-        if (query === "") return
-
-        setSearched(artifactData.filter(data => data.name.toLowerCase().indexOf(query) !== -1))
+        setSearched(artifactData.filter(data => data.name.toLowerCase().indexOf(query) !== -1));
     }
 
     if (loading) {
