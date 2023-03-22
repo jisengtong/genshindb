@@ -13,14 +13,9 @@ export const banners = [{
     icon: 'https://www.projectcelestia.com/static/images/UI_RelicIcon_15001_4.webp',
     animationClass: 'animation__three'
 }, {
-    name: 'Enemies',
-    bg: 'https://clutchpoints.com/wp-content/uploads/2021/10/genshin-impact-2.2-rockfond-1024x576.jpg',
-    icon: '',
-    animationClass: 'animation__four'
-}, {
     name: 'Interactive Map',
     bg: 'https://imageio.forbes.com/specials-images/imageserve/6087fe043bc4719153518ee5/Genshin-Impact/960x0.jpg?format=jpg&width=960',
     icon: 'https://gim.appsample.net/markers-v3/o3.png',
     link: 'https://genshin-impact-map.appsample.com/#/',
-    animationClass: 'animation__five'
+    animationClass: 'animation__four'
 }]

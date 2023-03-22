@@ -1,20 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { banners } from '../json/banner'
 
 const Character = () => {
-    const [name,setName]= useState(null);
-
     return (
         <div className='home__container'>
             <div className="flex items-center gap-2 flex-wrap text-center justify-center sm:justify-start">
                 <FontAwesomeIcon className='text-2xl lightcolor' icon={faHome} />
                 <h1 className="page__title lightcolor text-4xl font-bold text-center sm:text-left group">
                     Home Page <span className="hidden group-hover:inline">#</span>
-                    <br />
-                    Hello {name === null ? 'Guest' : name}
                 </h1>
             </div>
 
