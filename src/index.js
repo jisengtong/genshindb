@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-  BrowserRouter,
   Routes,
   Route,
   HashRouter
@@ -22,23 +21,21 @@ import './custom.css'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HashRouter>
-    <BrowserRouter>
-      <Header />
+    <Header />
 
-      <Routes>
-        <Route path="*" element={<Error message={'Page does not exist.'} />}></Route>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/Home" element={<Home />}></Route>
-        <Route path="/Characters" element={<Characters />}></Route>
-        <Route path="/ViewCharacter/:name" element={<ViewCharacter />}></Route>
-        <Route path="/Weapons" element={<Weapons />}></Route>
-        <Route path="/ViewWeapons/:name" element={<ViewWeapons />}></Route>
-        <Route path="/Artifacts" element={<Artifacts />}></Route>
-        <Route path="/ViewArtifacts/:name" element={<ViewArtifacts />}></Route>
-      </Routes>
+    <Routes>
+      <Route path="*" element={<Error message={'Page does not exist.'} />}></Route>
+      <Route path="/" element={<Home />}></Route>
+      <Route path="/Home" element={<Home />}></Route>
+      <Route path="/Characters" element={<Characters />}></Route>
+      <Route path="/ViewCharacter/:name" element={<ViewCharacter />}></Route>
+      <Route path="/Weapons" element={<Weapons />}></Route>
+      <Route path="/ViewWeapons/:name" element={<ViewWeapons />}></Route>
+      <Route path="/Artifacts" element={<Artifacts />}></Route>
+      <Route path="/ViewArtifacts/:name" element={<ViewArtifacts />}></Route>
+    </Routes>
 
-      <Footer />
+    <Footer />
 
-    </BrowserRouter >
-  </HashRouter>
+  </HashRouter >
 );
