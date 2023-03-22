@@ -5,18 +5,20 @@ import {
   Route,
   HashRouter
 } from "react-router-dom";
-import Header from './components/Header';
-import Home from './components/Home';
-import Characters from './components/Characters'
-import ViewCharacter from './components/ViewCharacter';
-import Weapons from './components/Weapons';
-import Artifacts from './components/Artifacts';
-import ViewWeapons from './components/ViewWeapons';
-import ViewArtifacts from './components/ViewArtifacts';
-import Footer from './components/Footer';
-import Error from './components/Error';
 import './style/style.css';
 import './custom.css'
+
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Error from './components/Error';
+
+import Characters from './pages/Characters'
+import ViewCharacter from './pages/ViewCharacter';
+import Weapons from './pages/Weapons';
+import Home from './pages/Home';
+import Artifacts from './pages/Artifacts';
+import ViewWeapons from './pages/ViewWeapons';
+import ViewArtifacts from './pages/ViewArtifacts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -36,6 +38,5 @@ root.render(
     </Routes>
 
     <Footer />
-
-  </HashRouter >
+  </HashRouter>
 );

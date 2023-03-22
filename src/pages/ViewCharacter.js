@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { getDoc, doc } from "firebase/firestore"
 import { getDownloadURL, ref } from 'firebase/storage'
 import { db, storage } from '../firebase'
-import Loading from './Loading'
+import Loading from '../components/Loading'
 import active from '../functions/active'
 
 const ViewCharacter = () => {
