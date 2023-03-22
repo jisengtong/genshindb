@@ -5,11 +5,14 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { banners } from '../json/banner'
 import active from '../functions/active'
 
+import { updateCharacters, updateWeapons, updateArtifacts } from '../functions/updateDb'
+
 const Home = () => {
-    useEffect(()=>{
+    useEffect(() => {
+        // updateCharacters('2.8')
         active('Home')
     })
-    
+
     return (
         <div className='home__container'>
             <div className="flex items-center gap-2 flex-wrap text-center justify-center sm:justify-start">

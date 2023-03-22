@@ -6,7 +6,7 @@ import {
   HashRouter
 } from "react-router-dom";
 import './style/style.css';
-import './custom.css'
+import './style/custom.css'
 
 import Header from './components/Header';
 import Footer from './components/Footer';

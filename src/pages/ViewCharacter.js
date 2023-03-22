@@ -43,7 +43,7 @@ const ViewCharacter = () => {
                 let cons = []
                 if (x.data().constellations) {
                     for (const key in x.data().constellations) {
-                        cons.push({ ...x.data().constellations[key] })
+                        cons.push({ ...x.data().constellations[key], img: x.data().constImg[key] })
                     }
                 }
                 setCons(cons)
