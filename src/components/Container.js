@@ -3,7 +3,7 @@ const Container = ({ title, searchInput, searchInputHandler, searchPlaceholder, 
         <div className='container'>
             <div className="flex justify-between flex-col md:flex-row md:items-center gap-4 mt-4 relative">
                 <h1 className="page__title lightcolor text-4xl font-bold text-center sm:text-left group">
-                    {title}<span className="hidden group-hover:inline">#</span>
+                    {title} <span className="hidden group-hover:inline">#</span>
                 </h1>
                 <div className="search__box relative w-full max-w-[350px]">
                     <input type="search"
@@ -20,7 +20,7 @@ const Container = ({ title, searchInput, searchInputHandler, searchPlaceholder, 
                 </div>
             </div>
 
-            <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-7 gap-4 py-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-7 gap-4 py-8">
                 {gridData}
             </div>
         </div>

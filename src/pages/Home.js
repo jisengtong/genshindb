@@ -38,7 +38,7 @@ const Home = () => {
                                     </p>
                                 </Link>
                                 :
-                                <a href={val.link} target="_blank" className={`rows relative block py-10 sm:py-14 px-6 rounded-xl group shadow-2xl animation ${val.animationClass && val.animationClass}`} key={key}
+                                <a href={val.link} target="_blank" rel="noreferrer nofollower" className={`rows relative block py-10 sm:py-14 px-6 rounded-xl group shadow-2xl animation ${val.animationClass && val.animationClass}`} key={key}
                                     style={{ background: `url(${val.bg})center center/cover no-repeat` }}>
                                     <div className="overlay absolute inset-0 h-full w-full bg-black bg-opacity-40 rounded-xl transition duration-300 group-hover:bg-opacity-20 z-40"
                                     ></div>
