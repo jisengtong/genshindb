@@ -1,10 +1,15 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { banners } from '../json/banner'
+import active from '../functions/active'
 
-const Character = () => {
+const Home = () => {
+    useEffect(()=>{
+        active('Home')
+    })
+    
     return (
         <div className='home__container'>
             <div className="flex items-center gap-2 flex-wrap text-center justify-center sm:justify-start">
@@ -48,4 +53,4 @@ const Character = () => {
     )
 }
 
-export default Character
+export default Home

@@ -5,24 +5,27 @@ import { collection, query, limit, onSnapshot } from 'firebase/firestore'
 import Loading from './Loading'
 import Error from './Error'
 import active from '../functions/active'
+import LoadMore from './LoadMore'
 
-const RenderArtifacts = ({ arr }) => {
+const RenderArtifacts = ({ arr, limit }) => {
     return (
-        arr.map((val, key) => {
-            return (
-                <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative`} to={`/ViewArtifacts/${val.name}`} key={key} data-name={val.name} title={val.name}>
-                    <div className={`icon relative ${val.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-t-xl`}>
-                        <div className="w-1/2 absolute inset-0 h-full bg-[#ae92d6] z-0 rounded-tl-xl">
+        arr
+            .slice(0, limit)
+            .map((val, key) => {
+                return (
+                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative`} to={`/ViewArtifacts/${val.name}`} key={key} data-name={val.name} title={val.name}>
+                        <div className={`icon relative ${val.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-t-xl`}>
+                            <div className="w-1/2 absolute inset-0 h-full bg-[#ae92d6] z-0 rounded-tl-xl">
+                            </div>
+                            <img src={val.images.flower ? val.images.flower : val.images.circlet} alt="" className='mx-auto rounded-t-xl relative z-30' />
                         </div>
-                        <img src={val.images.flower ? val.images.flower : val.images.circlet} alt="" className='mx-auto rounded-t-xl relative z-30' />
-                    </div>
 
-                    <div className="artifact__name text-center py-3 px-1">
-                        <p className='group-hover:text-[#6291e9] transition duration-300 text-ellipsis overflow-hidden'>{val.name}</p>
-                    </div>
-                </Link>
-            )
-        })
+                        <div className="artifact__name text-center py-3 px-1">
+                            <p className='group-hover:text-[#6291e9] transition duration-300 text-ellipsis overflow-hidden'>{val.name}</p>
+                        </div>
+                    </Link>
+                )
+            })
     )
 }
 
@@ -30,8 +33,9 @@ const Artifacts = () => {
     const [loading, setLoading] = useState(false)
     const [artifactData, setArtifact] = useState([])
     const [searchedArti, setSearched] = useState([])
-    const searchArti = useRef('')
     const [err, setErr] = useState('')
+    const [displayLimit, setDisplayLimit] = useState(30);
+    const searchArti = useRef('')
 
     useEffect(() => {
         setLoading(true)
@@ -99,12 +103,16 @@ const Artifacts = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-7 gap-4 py-8">
                 {
                     artifactData && searchedArti.length === 0 ?
-                        <RenderArtifacts arr={artifactData} />
+                        <RenderArtifacts arr={artifactData} limit={displayLimit} />
                         :
-                        <RenderArtifacts arr={searchedArti} />
+                        <RenderArtifacts arr={searchedArti} limit={displayLimit} />
 
                 }
             </div>
+            {
+                artifactData.length > 0 && displayLimit < artifactData.length &&
+                <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+            }
         </div>
     )
 }

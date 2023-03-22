@@ -35,13 +35,13 @@ const RenderChar = ({ arr, limit }) => {
     )
 }
 
-const Home = () => {
+const Character = () => {
     const [charData, setCharData] = useState([])
     const [loading, setLoading] = useState(false)
     const [searchedChar, setSearched] = useState([])
-    const [limit, setLimit] = useState(30);
-    const searchChar = useRef('')
     const [err, setErr] = useState('')
+    const [displayLimit, setDisplayLimit] = useState(30);
+    const searchChar = useRef('')
 
     useEffect(() => {
         setLoading(true)
@@ -107,17 +107,17 @@ const Home = () => {
             <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-7 gap-4 py-8">
                 {
                     charData.length > 0 && searchedChar.length === 0 ?
-                        <RenderChar arr={charData} limit={limit} />
+                        <RenderChar arr={charData} limit={displayLimit} />
                         :
-                        <RenderChar arr={searchedChar} limit={limit} />
+                        <RenderChar arr={searchedChar} limit={displayLimit} />
                 }
             </div>
             {
-                charData.length > 0 && limit < charData.length &&
-                <LoadMore onclick={() => setLimit(prev => prev + 30)} />
+                charData.length > 0 && displayLimit < charData.length &&
+                <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
             }
         </div>
     )
 }
 
-export default Home
+export default Character
