@@ -13,6 +13,10 @@ const Header = () => {
         })
     }, [])
 
+    const handleToggle = () => {
+        setToggle(prev => !prev)
+    }
+
     return (
         <header className='sticky top-4 md:top-0 md:relative flex justify-between flex-col md:flex-row md:items-center gap-2 font-bold py-6 text-lg bg-[#282c36] shadow-2xl rounded-xl px-4 mt-4 mb-10 ' style={{ zIndex: '150' }}>
             <img src={Logo} alt="" className='max-w-[250px] w-full' />
@@ -28,7 +32,7 @@ const Header = () => {
                         links.map((val, key) => {
                             return (
                                 <li key={key}>
-                                    <Link to={val} id={val} className='navlink transition-all duration-300 text-[#6a91e9] opacity-40 hover:opacity-100 hover:tracking-widest' onClick={() => setToggle(false)}>{val}</Link>
+                                    <Link to={val} id={val} className='navlink transition-all duration-300 text-[#6a91e9] opacity-40 hover:opacity-100 hover:tracking-widest' onClick={handleToggle}>{val}</Link>
                                 </li>
                             )
                         })

@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import CollapsableParagraph from '../components/CollapsableParagraph.js'
+import DataVersion from '../components/DataVersion'
 
 const ViewWeapons = () => {
     const { name } = useParams();
@@ -114,9 +115,7 @@ const ViewWeapons = () => {
                         </h2>
                         <CollapsableParagraph texts={weaponData.story ? weaponData.story : "N/A"} />
                     </div>
-                    <p className="version mt-6 text-lg text-white">
-                        <span className="font-semibold">Released:</span> Version {weaponData.version}
-                    </p>
+                    <DataVersion version={weaponData.version} />
                 </div>
             }
         </div>

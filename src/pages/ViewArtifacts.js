@@ -3,6 +3,8 @@ import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
+import DataVersion from '../components/DataVersion'
+
 import Plume from '../images/artifacts/Plume.png'
 import Circlet from '../images/artifacts/Circlet.png'
 import Flower from '../images/artifacts/Flower.png'
@@ -32,7 +34,7 @@ const ViewArtifacts = () => {
     const artifactStats = [{
         name: 'flower',
         img: Flower,
-        title:'Flower of Life',
+        title: 'Flower of Life',
         desc: 'Flower of Life: Flat HP'
     }, {
         name: 'plume',
@@ -115,11 +117,11 @@ const ViewArtifacts = () => {
                                     )
                                 })}
                             </p>
-                            <div className="labels flex items-center gap-3 flex-wrap">
-                                <span className="weapon__type mt-4 block py-2 px-3 rounded-lg bg-blue-800/30 text-opacity-90 text-white">
+                            <div className="labels flex items-center gap-3 flex-wrap mt-4">
+                                <span className="artifact__type block py-2 px-3 rounded-lg bg-blue-800/30 text-opacity-90 text-white">
                                     Artifact
                                 </span>
-                                <span className="weapon__type md:mt-4 block py-2 px-3 rounded-lg bg-blue-800/30 text-opacity-90 text-white">
+                                <span className="artifact__type block py-2 px-3 rounded-lg bg-blue-800/30 text-opacity-90 text-white">
                                     {artiData.flower.relictype ? artiData.flower.relictype : artiData.circlet.relictype}
                                 </span>
                             </div>
@@ -137,20 +139,20 @@ const ViewArtifacts = () => {
                         {
                             artiData.setBonus.two !== "" ?
                                 <div className="max-w-screen-md columns mt-4 rounded-lg border-2 border-white/50">
-                                    <div className="grid sm:grid-cols-3 bg-gray-700 rounded-t-lg border-b-2 border-white/50">
-                                        <p className='font-semibold border-r-2 p-3 border-white/50'>2-Set Bonus:</p>
-                                        <p className="col-span-2 mt-2 sm:mt-0 p-3">{artiData.setBonus.two}</p>
+                                    <div className="sm:grid sm:grid-cols-3 bg-gray-700 rounded-t-lg border-b-2 border-white/50">
+                                        <p className='font-semibold sm:border-r-2 p-3 border-white/50'>2-Set Bonus:</p>
+                                        <p className="col-span-2 p-3">{artiData.setBonus.two}</p>
                                     </div>
-                                    <div className="grid sm:grid-cols-3 bg-slate-800 rounded-b-lg ">
-                                        <p className='font-semibold p-3 border-r-2 border-white/50'>4-Set Bonus:</p>
-                                        <p className="col-span-2 mt-2 sm:mt-0 p-3">{artiData.setBonus.four}</p>
+                                    <div className="sm:grid sm:grid-cols-3 bg-slate-800 rounded-b-lg">
+                                        <p className='font-semibold p-3 sm:border-r-2 border-white/50'>4-Set Bonus:</p>
+                                        <p className="col-span-2 p-3">{artiData.setBonus.four}</p>
                                     </div>
                                 </div>
                                 :
                                 <div className="max-w-screen-md columns mt-4 rounded-lg border-2 border-white/50">
-                                    <div className="grid sm:grid-cols-3 bg-gray-700 rounded-lg">
+                                    <div className="sm:grid sm:grid-cols-3 bg-gray-700 rounded-lg">
                                         <p className='font-semibold border-r-2 border-white/50 p-3'>1-Set Bonus:</p>
-                                        <p className="col-span-2 mt-2 sm:mt-0 p-3">{artiData.setBonus.one}</p>
+                                        <p className="col-span-2 p-3">{artiData.setBonus.one}</p>
                                     </div>
                                 </div>
                         }
@@ -216,6 +218,8 @@ const ViewArtifacts = () => {
                             }
                         </div>
                     </div>
+
+                    <DataVersion version={artiData.version} />
                 </div>
             }
         </div>

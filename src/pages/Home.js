@@ -5,8 +5,13 @@ import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { banners } from '../json/banner'
 import active from '../functions/active'
 
+// import { updateCharacters, updateWeapons, updateArtifacts } from '../functions/updateDb'
+
 const Home = () => {
     useEffect(() => {
+        // updateArtifacts('3.6')
+        // updateCharacters('3.6')
+        // updateWeapons('3.6')
         active('Home')
     })
 
