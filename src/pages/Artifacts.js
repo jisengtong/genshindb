@@ -40,10 +40,9 @@ const Artifacts = () => {
 
     useEffect(() => {
         setLoading(true)
-        document.title = "Genshin Impact Database - Artifacts"
-
         getArtifacts()
-        active('Artifacts')
+        
+        active('Artifacts', 'Artifacts')
     }, [])
 
     async function getArtifacts() {
@@ -65,6 +64,11 @@ const Artifacts = () => {
     }
 
     function searchArtifacts() {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'instant'
+        })
         setSearched([])
         let query = searchArti.current.value.toLowerCase();
         if (query === "") return;

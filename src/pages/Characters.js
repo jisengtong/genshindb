@@ -20,7 +20,7 @@ const RenderChar = ({ arr, limit }) => {
                         title={val.name}>
                         {
                             val.element !== "N/A" &&
-                            <div className="char__element absolute top-3 left-3 rounded-full p-1.5 bg-black bg-opacity-50 w-7 h-7 sm:w-8 sm:h-8 z-50">
+                            <div className="char__element absolute top-3 left-3 rounded-full p-1.5 bg-black bg-opacity-50 w-7 h-7 sm:w-8 sm:h-8 z-40">
                                 <img src={`https://firebasestorage.googleapis.com/v0/b/project1-82261.appspot.com/o/elements%2F${val.element}.png?alt=media&token=4c613456-ba83-4f79-9844-68bba9917c6d`} alt="" className="rounded-full" />
                             </div>
                         }
@@ -46,11 +46,9 @@ const Character = () => {
 
     useEffect(() => {
         setLoading(true)
-
-        document.title = "Genshin Impact Database - Characters"
         getCharData()
 
-        active('Characters')
+        active("Characters",'Characters')
     }, [])
 
     async function getCharData() {
@@ -70,8 +68,14 @@ const Character = () => {
     }
 
     function searchCharacter() {
+        window.scrollTo({
+            top:0,
+            left:0,
+            behavior:'instant'
+        })
         setSearched([])
         let query = searchChar.current.value.toLowerCase()
+        if (query === "") return
 
         setSearched(charData.filter(data => data.name.toLowerCase().includes(query)))
     }

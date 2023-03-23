@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import CollapsableParagraph from '../components/CollapsableParagraph.js'
 import DataVersion from '../components/DataVersion'
+import active from '../functions/active'
 
 const ViewWeapons = () => {
     const { name } = useParams();
@@ -16,14 +17,9 @@ const ViewWeapons = () => {
 
     useEffect(() => {
         name !== undefined ? getWeaponData(name) : nav('/Error', { replace: true });
-
         setWeaponName(name);
-        document.title = "Genshin Weapon - " + name;
-
-        document.querySelectorAll('.navlink').forEach(x => {
-            x.classList.add('opacity-40');
-            document.getElementById('Weapons').classList.remove('opacity-40');
-        })
+        
+        active(`Weapon - ${name}`, 'Weapons')
     }, [])
 
     async function getWeaponData(name) {
@@ -50,7 +46,7 @@ const ViewWeapons = () => {
         const selectedRefinement = element.target.value
         const refinementData = weaponData[selectedRefinement]
         let refinementEffect = weaponData.effect
-  
+
         for (let i = 0; i < refinementData.length; i++) {
             refinementEffect = refinementEffect.split('{' + i + '}').join(refinementData[i])
         }

@@ -20,11 +20,9 @@ const ViewCharacter = () => {
             getChar(name)
             :
             nav('/Error', { replace: true });
-
         setName(name);
-        document.title = `Genshin Character - ${name}`;
 
-        active('Characters');
+        active(`Character - ${name}`, 'Characters');
     }, [])
 
     async function getChar(character) {

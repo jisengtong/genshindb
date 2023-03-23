@@ -4,6 +4,7 @@ import { db } from '../firebase'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import DataVersion from '../components/DataVersion'
+import active from '../functions/active'
 
 import Plume from '../images/artifacts/Plume.png'
 import Circlet from '../images/artifacts/Circlet.png'
@@ -60,14 +61,9 @@ const ViewArtifacts = () => {
 
     useEffect(() => {
         name !== undefined ? getArtifactData(name) : nav('/Error', { replace: true });
-
-        document.title = "Artifacts - " + name;
         setName(name);
-
-        document.querySelectorAll('.navlink').forEach(x => {
-            x.classList.add('opacity-40');
-            document.getElementById('Artifacts').classList.remove('opacity-40');
-        })
+        
+        active(`Artifacts - ${name}`, 'Artifacts')
     }, [])
 
     async function getArtifactData(artiName) {

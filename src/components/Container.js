@@ -1,15 +1,15 @@
-const Container = ({ title, searchInput, searchInputHandler, searchPlaceholder, gridData }) => {
+const Container = ({ titleIcon, title, searchInput, searchInputHandler, searchPlaceholder, gridData }) => {
     return (
         <div className='container__grid'>
-            <div className="flex justify-between flex-col md:flex-row md:items-center gap-4 mt-4 relative">
-                <h1 className="page__title lightcolor text-4xl font-bold text-center sm:text-left group">
-                    {title} <span className="hidden group-hover:inline">#</span>
+            <div className="flex justify-between flex-col md:flex-row md:items-center gap-4 mt-4 sticky top-12 sm:relative sm:top-0 z-50">
+                <h1 className="page__title lightcolor text-3xl sm:text-4xl font-bold text-center sm:text-left group">
+                    {title} <span className="hidden sm:group-hover:inline">#</span>
                 </h1>
-                <div className="search__box relative w-full sm:max-w-[350px]">
+                <div className="search__box w-full md:max-w-[350px] relative">
                     <input type="search"
                         name="searchCharacter"
                         id="searchCharacter"
-                        className='bg-[#23252a] py-3 pl-12 inline-block w-full mt-4 rounded-xl outline-none focus:outline-2 focus:outline-slate-600 text-white'
+                        className='bg-[#23252a] py-3 pl-12 inline-block w-full mt-4 rounded-xl outline-none focus:outline-4 focus:outline-slate-500 text-white'
                         placeholder={searchPlaceholder}
                         ref={searchInput}
                         onChange={searchInputHandler}
