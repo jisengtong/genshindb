@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 import { collection, query, limit, onSnapshot } from 'firebase/firestore'
+import search from '../functions/search'
+
 import Loading from '../components/Loading'
 import Error from '../components/Error'
 import active from '../functions/active'
@@ -34,14 +36,14 @@ const Artifacts = () => {
     const [loading, setLoading] = useState(false)
     const [artifactData, setArtifact] = useState([])
     const [searchedArti, setSearched] = useState([])
-    const [err, setErr] = useState('')
+    const [error, setError] = useState('')
     const [displayLimit, setDisplayLimit] = useState(30);
     const searchArti = useRef('')
 
     useEffect(() => {
         setLoading(true)
         getArtifacts()
-        
+
         active('Artifacts', 'Artifacts')
     }, [])
 
@@ -57,31 +59,17 @@ const Artifacts = () => {
             }
             setArtifact(aData.sort((a, b) => Number(b.rarity[0]) - Number(a.rarity[0])))
         }, () => {
-            setErr("Error loading Artifacts Data. Try again later.")
+            setError("Error loading Artifacts Data. Try again later.")
         })
-
         setLoading(false);
-    }
-
-    function searchArtifacts() {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'instant'
-        })
-        setSearched([])
-        let query = searchArti.current.value.toLowerCase();
-        if (query === "") return;
-
-        setSearched(artifactData.filter(data => data.name.toLowerCase().indexOf(query) !== -1));
     }
 
     if (loading) {
         return <Loading />
     }
 
-    if (err) {
-        return <Error message={err} />
+    if (error) {
+        return <Error message={error} />
     }
 
     return (
@@ -89,7 +77,7 @@ const Artifacts = () => {
             <Container
                 title={'Artifacts'}
                 searchInput={searchArti}
-                searchInputHandler={searchArtifacts}
+                searchInputHandler={() => search(artifactData, setSearched, searchArti.current.value)}
                 searchPlaceholder={'Search for Artifact Name...'}
                 gridData={
                     artifactData && searchedArti.length === 0 ?
@@ -99,8 +87,12 @@ const Artifacts = () => {
                 }
             />
             {
-                artifactData.length > 0 && displayLimit < artifactData.length &&
-                <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                !searchedArti.length > 0 ?
+                    artifactData.length > 0 && displayLimit < artifactData.length &&
+                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                    :
+                    searchedArti.length > 0 && displayLimit < searchedArti.length &&
+                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
             }
         </div>
     )

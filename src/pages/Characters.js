@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
+import search from '../functions/search'
+
 import Error from '../components/Error'
 import Loading from '../components/Loading'
 import LoadMore from '../components/LoadMore'
@@ -40,7 +42,7 @@ const Character = () => {
     const [charData, setCharData] = useState([])
     const [loading, setLoading] = useState(false)
     const [searchedChar, setSearched] = useState([])
-    const [err, setErr] = useState('')
+    const [error, setError] = useState('')
     const [displayLimit, setDisplayLimit] = useState(30);
     const searchChar = useRef('')
 
@@ -48,7 +50,7 @@ const Character = () => {
         setLoading(true)
         getCharData()
 
-        active("Characters",'Characters')
+        active("Characters", 'Characters')
     }, [])
 
     async function getCharData() {
@@ -61,31 +63,18 @@ const Character = () => {
             })
         },
             () => {
-                setErr('Error loading Character Data. Try Again Later.')
+                setError('Error loading Character Data. Try Again Later.')
             }
         )
         setLoading(false);
-    }
-
-    function searchCharacter() {
-        window.scrollTo({
-            top:0,
-            left:0,
-            behavior:'instant'
-        })
-        setSearched([])
-        let query = searchChar.current.value.toLowerCase()
-        if (query === "") return
-
-        setSearched(charData.filter(data => data.name.toLowerCase().includes(query)))
     }
 
     if (loading) {
         return <Loading />
     }
 
-    if (err) {
-        return <Error message={err} />
+    if (error) {
+        return <Error message={error} />
     }
 
     return (
@@ -93,7 +82,7 @@ const Character = () => {
             <Container
                 title={'Game Characters'}
                 searchInput={searchChar}
-                searchInputHandler={searchCharacter}
+                searchInputHandler={() => search(charData, setSearched, searchChar.current.value)}
                 searchPlaceholder={'Search for Character Name...'}
                 gridData={
                     charData.length > 0 && searchedChar.length === 0 ?
@@ -103,8 +92,12 @@ const Character = () => {
                 }
             />
             {
-                charData.length > 0 && displayLimit < charData.length &&
-                <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                !searchedChar.length > 0 ?
+                    charData.length > 0 && displayLimit < charData.length &&
+                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                    :
+                    searchedChar.length > 0 && displayLimit < searchedChar.length &&
+                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
             }
         </div>
     )

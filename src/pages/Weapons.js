@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
+import search from '../functions/search'
+
 import Error from '../components/Error'
 import Loading from '../components/Loading'
 import active from '../functions/active'
@@ -61,19 +63,6 @@ const Weapons = () => {
         setLoading(false)
     }
 
-    function searchWeapon() {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'instant'
-        })
-        setSearched([])
-        let query = searchWeap.current.value.toLowerCase()
-        if (query === "") return
-
-        setSearched(weaponData.filter(data => data.name.toLowerCase().indexOf(query) !== -1))
-    }
-
     if (loading) {
         return <Loading />
     }
@@ -87,7 +76,7 @@ const Weapons = () => {
             <Container
                 title={'Weapons'}
                 searchInput={searchWeap}
-                searchInputHandler={searchWeapon}
+                searchInputHandler={() => search(weaponData, setSearched, searchWeap.current.value)}
                 searchPlaceholder={'Search for Weapon Name...'}
                 gridData={
                     weaponData && searchedWeap.length === 0 ?
@@ -97,8 +86,12 @@ const Weapons = () => {
                 }
             />
             {
-                weaponData.length > 0 && displayLimit < weaponData.length &&
-                <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                !searchedWeap.length > 0 ?
+                    weaponData.length > 0 && displayLimit < weaponData.length &&
+                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                    :
+                    searchedWeap.length > 0 && displayLimit < searchedWeap.length &&
+                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
             }
         </div>
     )
