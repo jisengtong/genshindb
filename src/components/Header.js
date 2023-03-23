@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Logo from '../images/genshinLogo.png'
 
 const Header = () => {
-    const links = ['Home', 'Characters', 'Weapons', 'Artifacts']
+    const links = ['Home', 'Characters', 'Weapons', 'Artifacts','Banners']
     const [displayTop, setDisplay] = useState(false)
     const [toggled, setToggle] = useState(false)
 

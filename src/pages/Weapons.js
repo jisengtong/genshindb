@@ -38,9 +38,9 @@ const RenderWeapon = ({ arr, limit }) => {
 
 const Weapons = () => {
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const [weaponData, setWeaponData] = useState([]);
     const [searchedWeap, setSearched] = useState([]);
-    const [error, setError] = useState('');
     const [displayLimit, setDisplayLimit] = useState(30);
     const searchWeap = useRef('');
 

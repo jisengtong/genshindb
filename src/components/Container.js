@@ -1,10 +1,10 @@
+import PageTitle from './PageTitle'
+
 const Container = ({ titleIcon, title, searchInput, searchInputHandler, searchPlaceholder, gridData }) => {
     return (
         <div className='container__grid'>
             <div className="flex justify-between flex-col md:flex-row md:items-center gap-4 mt-4 sticky top-12 sm:relative sm:top-0 z-50">
-                <h1 className="page__title lightcolor text-3xl sm:text-4xl font-bold text-center sm:text-left group">
-                    {title} <span className="hidden sm:group-hover:inline">#</span>
-                </h1>
+                <PageTitle title={title} />
                 <div className="search__box w-full md:max-w-[350px] relative">
                     <input type="search"
                         name="searchCharacter"

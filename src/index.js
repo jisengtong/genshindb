@@ -20,6 +20,7 @@ import Home from './pages/Home';
 import Artifacts from './pages/Artifacts';
 import ViewWeapons from './pages/ViewWeapons';
 import ViewArtifacts from './pages/ViewArtifacts';
+import Banners from './pages/Banners';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -37,6 +38,7 @@ root.render(
       <Route path="/ViewWeapons/:name" element={<ViewWeapons />}></Route>
       <Route path="/Artifacts" element={<Artifacts />}></Route>
       <Route path="/ViewArtifacts/:name" element={<ViewArtifacts />}></Route>
+      <Route path="/Banners" element={<Banners />}></Route>
     </Routes>
 
     <Footer />
