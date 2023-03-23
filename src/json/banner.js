@@ -9,13 +9,18 @@ export const banners = [{
     animationClass: 'animation__two'
 }, {
     name: 'Artifacts',
-    bg: 'https://preview.redd.it/vwmtli0mjs671.png?auto=webp&s=a62591fb222368499b5522f95ad5debbbfda68a8',
+    bg: 'https://attackofthefanboy.com/wp-content/uploads/2020/12/genshin-impact-dragonspine-weapons.jpg?w=1280',
     icon: 'https://webstatic.hoyoverse.com/upload/contentweb/2022/08/16/f77d0c308b54728b6a1f3bc525e42955_1063974383729558189.png',
     animationClass: 'animation__three'
 }, {
+    name: 'Banners',
+    bg: 'https://staticg.sportskeeda.com/editor/2022/03/81dfb-16461722006248-1920.jpg',
+    icon: 'https://api.ambr.top/assets/UI/UI_ItemIcon_223.png',
+    animationClass: 'animation__four'
+}, {
     name: 'Interactive Map',
-    bg: 'https://imageio.forbes.com/specials-images/imageserve/6087fe043bc4719153518ee5/Genshin-Impact/960x0.jpg?format=jpg&width=960',
+    bg: 'https://cdn.mapgenie.io/images/games/genshin-impact/preview.jpg',
     icon: 'https://gim.appsample.net/markers-v3/o3.png',
     link: 'https://genshin-impact-map.appsample.com/#/',
-    animationClass: 'animation__four'
+    animationClass: 'animation__five'
 }]

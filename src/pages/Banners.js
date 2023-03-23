@@ -8,7 +8,7 @@ import PageTitle from '../components/PageTitle'
 
 const Lists = ({ title, data }) => {
   return (
-    <div className="mt-4">
+    <div className="mt-8">
       <p className='text-lg'><span className="font-bold">{title} </span> </p>
       <ul className='list-disc flex flex-col gap-2 px-4 mt-2'>
         {
@@ -88,8 +88,7 @@ const Banners = () => {
 
   return (
     <div className='text-white'>
-      <PageTitle title={"Current Banners"} />
-
+      <PageTitle title={"Current Time Limited Banners"} />
       {
         Object.keys(bannerData).length > 0 &&
         <div className="mt-8 banner__detail max-w-screen-lg mx-auto p-8 bg-[#282C36] rounded-xl shadow-xl">
@@ -120,7 +119,7 @@ const Banners = () => {
 
           <div className="mt-8">
             <p className="lightcolor text-xl sm:text-2xl">※ Additional Details</p>
-            <p className="text-lg mt-2">For more information Event Banner Wishes, go to the in-game Wish screen by pressing F3 or via Pause Menu and select Details in the bottom-left corner.</p>
+            <p className="sm:text-lg mt-2">For more information Event Banner Wishes, go to the in-game Wish screen by pressing F3 or via Pause Menu and select Details in the bottom-left corner.<br /> Happy Wishing!</p>
           </div>
         </div>
       }
