@@ -12,6 +12,8 @@ const ViewWeapons = () => {
     const [effect, setEffect] = useState('');
     const nav = useNavigate();
 
+    const totalRefinements = [1, 2, 3, 4, 5]
+
     useEffect(() => {
         name !== undefined ? getWeaponData(name) : nav('/Error', { replace: true });
 
@@ -29,17 +31,30 @@ const ViewWeapons = () => {
         await getDoc(weaponRef).then((x) => {
             if (x.exists()) {
                 let initialStr = x.data().effect;
-                for (let i = 0; i < x.data().r1.length; i++) {
-                    initialStr = initialStr.split('{' + i + '}').join(x.data().r1[i])
+                if (initialStr !== "") {
+                    let { r1 } = x.data()
 
+                    for (let i = 0; i < r1.length; i++) {
+                        initialStr = initialStr.split('{' + i + '}').join(r1[i])
+                    }
+                    setEffect(initialStr);
                 }
-                setEffect(initialStr);
                 setWeaponData(x.data());
             } else {
                 nav('/Weapons', { replace: true });
             }
         })
+    }
 
+    function handleRefinementChange(element) {
+        const selectedRefinement = element.target.value
+        const refinementData = weaponData[selectedRefinement]
+        let refinementEffect = weaponData.effect
+  
+        for (let i = 0; i < refinementData.length; i++) {
+            refinementEffect = refinementEffect.split('{' + i + '}').join(refinementData[i])
+        }
+        setEffect(refinementEffect)
     }
 
     return (
@@ -102,7 +117,15 @@ const ViewWeapons = () => {
                         weaponData.effectname !== "" &&
                         <div className="weapon__effect mt-6 text-white">
                             <h2 className="effect__name font-bold text-xl sm:text-2xl lightcolor">
-                                {weaponData.effectname} <span className="text-lg font-normal">*R1</span>
+                                {weaponData.effectname} <span className="text-lg font-normal">
+                                    <select name="refinementLevels" className='cursor-pointer bg-blue-800/30 py-2 px-4 outline-none' onChange={(event) => handleRefinementChange(event)}>
+                                        {
+                                            totalRefinements.map((level, key) => {
+                                                return <option value={`r${level}`} key={key}>R{level}</option>
+                                            })
+                                        }
+                                    </select>
+                                </span>
                             </h2>
                             <p className="weapon__skill mt-2">
                                 {effect}
