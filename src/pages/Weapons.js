@@ -14,7 +14,7 @@ const RenderWeapon = ({ arr, limit }) => {
             .slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative`} to={`/ViewWeapons/${val.name}`} key={key} data-name={val.name} title={val.name}>
+                    <Link className={`group rounded-xl bg-[#23252a] shadow-xl text-white relative flex flex-col`} to={`/ViewWeapons/${val.name}`} key={key} data-name={val.name} title={val.name}>
                         <div className="weap_rarity absolute top-3 left-3 rounded-full p-1.5 bg-black/50 w-7 h-7 sm:w-8 sm:h-8 z-50 flex items-center justify-center">
                             {val.rarity}
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -22,7 +22,7 @@ const RenderWeapon = ({ arr, limit }) => {
                             </svg>
                         </div>
 
-                        <div className={`icon relative ${val.rarity >= "4" ? val.rarity === "5" ? 'bg-[#e1872280]' : 'bg-[#ae92d680]' : 'bg-gray-600'} rounded-t-xl`}>
+                        <div className={`icon relative ${val.rarity >= "4" ? val.rarity === "5" ? 'bg-[#e1872280]' : 'bg-[#ae92d680]' : 'bg-gray-600'} rounded-t-xl ${!val.images.icon && 'flex-grow'}`}>
                             <img src={val.images.icon} alt="" className='mx-auto rounded-t-xl' />
                         </div>
                         <div className="characters__name text-center py-3 px-1">

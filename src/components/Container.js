@@ -1,11 +1,11 @@
 const Container = ({ title, searchInput, searchInputHandler, searchPlaceholder, gridData }) => {
     return (
-        <div className='container'>
+        <div className='container__grid'>
             <div className="flex justify-between flex-col md:flex-row md:items-center gap-4 mt-4 relative">
                 <h1 className="page__title lightcolor text-4xl font-bold text-center sm:text-left group">
                     {title} <span className="hidden group-hover:inline">#</span>
                 </h1>
-                <div className="search__box relative w-full max-w-[350px]">
+                <div className="search__box relative w-full sm:max-w-[350px]">
                     <input type="search"
                         name="searchCharacter"
                         id="searchCharacter"

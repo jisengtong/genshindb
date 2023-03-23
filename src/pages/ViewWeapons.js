@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
+import CollapsableParagraph from '../components/CollapsableParagraph.js'
 
 const ViewWeapons = () => {
     const { name } = useParams();
@@ -107,6 +108,12 @@ const ViewWeapons = () => {
                             </p>
                         </div>
                     }
+                    <div className="weapon__story mt-8 text-white">
+                        <h2 className="effect__name font-bold text-xl sm:text-2xl lightcolor">
+                            Weapon Story
+                        </h2>
+                        <CollapsableParagraph texts={weaponData.story ? weaponData.story : "N/A"} />
+                    </div>
                     <p className="version mt-6 text-lg text-white">
                         <span className="font-semibold">Released:</span> Version {weaponData.version}
                     </p>

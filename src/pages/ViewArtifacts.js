@@ -32,22 +32,27 @@ const ViewArtifacts = () => {
     const artifactStats = [{
         name: 'flower',
         img: Flower,
+        title:'Flower of Life',
         desc: 'Flower of Life: Flat HP'
     }, {
         name: 'plume',
         img: Plume,
+        title: 'Plume of Death',
         desc: 'Plume of Death: Flat ATK'
     }, {
         name: 'sands',
         img: Sands,
+        title: 'Sands of Eon',
         desc: 'Sands of Eon: HP% /ER% /ATK% /DEF% /Elemental Mastery'
     }, {
         name: 'goblet',
         img: Goblet,
+        title: 'Goblet of Eonothem',
         desc: 'Goblet of Eonothem:  HP% /ATK% /DEF% /Elemental DMG Bonus% /Elemental Mastery'
     }, {
         name: 'circlet',
         img: Circlet,
+        title: 'Circlet of Logos',
         desc: 'Circlet of Logos: HP% /ATK% /DEF% /Crit Rate% /Crit DMG% /Elemental Mastery'
     }]
 
@@ -162,7 +167,7 @@ const ViewArtifacts = () => {
                                     <>
                                         {artifactStats.map((val, index) => {
                                             return (
-                                                <div className="col rounded-lg bg-slate-900 relative" title='Flower of Life' key={index}>
+                                                <div className="col rounded-lg bg-slate-900 relative" title={val.title} key={index}>
                                                     <div className="rounded-full p-1 absolute left-3 top-3 bg-black/50">
                                                         <img src={val.img} alt="" className="" />
                                                     </div>
