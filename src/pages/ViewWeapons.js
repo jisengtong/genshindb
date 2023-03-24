@@ -18,7 +18,7 @@ const ViewWeapons = () => {
     useEffect(() => {
         name !== undefined ? getWeaponData(name) : nav('/Error', { replace: true });
         setWeaponName(name);
-        active(`Weapon - ${name}`, 'Weapons')
+        active(`Weapon - ${name}`, 'weapons')
     }, [])
 
     async function getWeaponData(name) {

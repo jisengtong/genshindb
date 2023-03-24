@@ -6,6 +6,16 @@ import Loading from '../components/Loading'
 import Error from '../components/Error'
 import PageTitle from '../components/PageTitle'
 
+const getTimeLeft = (ms) => {
+  const seconds = Math.floor((ms / 1000) % 60)
+  const minutes = Math.floor((ms / 60000) % 60)
+  const hours = Math.floor((ms / 3600000) % 24)
+  const days = Math.floor((ms / 86400000) % 365)
+  const TimeLeft = `${days.toString().padStart(2, '0')}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`
+
+  return TimeLeft
+}
+
 const Lists = ({ title, data }) => {
   return (
     <div className="mt-8">
@@ -27,7 +37,9 @@ const Banners = () => {
   const [error, setError] = useState('');
 
   const [msLeftAsia, setMsAsia] = useState(0)
+  const [msLeftUS, setMsUS] = useState(0)
   const bannerIntervalAsia = useRef()
+  const bannerIntervalUS = useRef()
 
   const startMs = new Date(bannerData.starts) || ""
   const endMs = new Date(bannerData.ends) || ""
@@ -39,27 +51,29 @@ const Banners = () => {
   const endYMD = `${endMs.getFullYear()}/${(endMs.getMonth() + 1).toString().padStart(2, '0')}/${endMs.getDate().toString().padStart(2, '0')}`
   const endHMS = `${endMs.getHours().toString().padStart(2, '0')}:${endMs.getMinutes().toString().padStart(2, '0')}:${endMs.getSeconds().toString().padStart(2, '0')}`
 
-  const seconds = Math.floor((msLeftAsia / 1000) % 60)
-  const minutes = Math.floor((msLeftAsia / 60000) % 60)
-  const hours = Math.floor((msLeftAsia / 3600000) % 24)
-  const days = Math.floor((msLeftAsia / 86400000) % 365)
-  const TimeLeft = `${days.toString().padStart(2, '0')}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`
+  const TimeLeftAsia = getTimeLeft(msLeftAsia)
+  const TimeLeftUS = getTimeLeft(msLeftUS)
 
   useEffect(() => {
-    active('Current Event Banners', 'Banners')
+    active('Banners', 'banners')
     getBanner()
   }, [])
 
   useEffect(() => {
     if (Object.keys(bannerData).length > 0) {
       setMsAsia(new Date(bannerData.ends).getTime() - new Date().getTime())
+      setMsUS((new Date(bannerData.ends).getTime()) + 43200000 - new Date().getTime())
 
       bannerIntervalAsia.current = setInterval(() => {
         setMsAsia(prev => prev - 1000)
       }, 1000)
+      bannerIntervalUS.current = setInterval(() => {
+        setMsUS(prev => prev - 1000)
+      }, 1000)
 
       return (() => {
         clearInterval(bannerIntervalAsia.current)
+        clearInterval(bannerIntervalUS.current)
       })
     }
   }, [bannerData])
@@ -83,6 +97,7 @@ const Banners = () => {
   }
 
   if (msLeftAsia < 1000) clearInterval(bannerIntervalAsia.current)
+  if (msLeftUS < 1000) clearInterval(bannerIntervalUS.current)
   if (loading) return <Loading />
   if (error) return <Error message={error} />
 
@@ -92,8 +107,13 @@ const Banners = () => {
       {
         Object.keys(bannerData).length > 0 &&
         <div className="mt-8 banner__detail max-w-screen-lg mx-auto p-8 bg-[#282C36] rounded-xl shadow-xl">
-          <h1 className='text-xl sm:text-2xl'>Banners Ending in: <span className='block sm:inline-block'> {TimeLeft} </span> {"(Asia Server)"}</h1>
-          <div className="flex flex-col gap-8 mt-4">
+          <h1 className='text-xl sm:text-2xl'>Banners Ending in:
+            <ul className="list-disc px-6">
+              <li> {TimeLeftAsia} {"(Asia/TW/HK Server)"}</li>
+              <li> {TimeLeftUS} {"(NA/EU Server)"}</li>
+            </ul>
+          </h1>
+          <div className="flex flex-col gap-8 mt-6">
             {
               bannerData.featured.big.map((banners, key) => {
                 return (
@@ -119,11 +139,10 @@ const Banners = () => {
 
           <div className="mt-8">
             <p className="lightcolor text-xl sm:text-2xl">※ Additional Details</p>
-            <p className="sm:text-lg mt-2">For more information Event Banner Wishes, go to the in-game Wish screen by pressing F3 or via Pause Menu and select Details in the bottom-left corner.<br /> Happy Wishing!</p>
+            <p className="mt-2">For more information Event Banner Wishes, go to the in-game Wish screen by pressing F3 or via Pause Menu and select Details in the bottom-left corner.<br /> Happy Wishing!</p>
           </div>
         </div>
       }
-
     </div>
   )
 }

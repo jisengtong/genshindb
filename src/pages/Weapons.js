@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
+import { useStates } from '../components/useStates'
+
 import search from '../functions/search'
+import sortData from '../functions/sortData'
 
 import Error from '../components/Error'
 import Loading from '../components/Loading'
-import active from '../functions/active'
 import LoadMore from '../components/LoadMore'
 import Container from '../components/Container'
 
@@ -37,61 +39,60 @@ const RenderWeapon = ({ arr, limit }) => {
 }
 
 const Weapons = () => {
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [weaponData, setWeaponData] = useState([]);
-    const [searchedWeap, setSearched] = useState([]);
-    const [displayLimit, setDisplayLimit] = useState(30);
-    const searchWeap = useRef('');
+    const [loading, setLoading, error, setError, data, setData, searchedData,
+        setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
+        isFirstRender, searchKeyword] = useStates("Weapons", "weapons")
 
     useEffect(() => {
-        setLoading(true);
-        getWeaponData();
-
-        active("Weapons", 'Weapons')
+        setLoading(true)
+        getWeaponData()
     }, [])
 
+    useEffect(() => {
+        if (!isFirstRender) {
+            sortData(isAsc, data, 'rarity', setData)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAsc])
+
     async function getWeaponData() {
-        const weaponRef = collection(db, 'weapons');
+        const weaponRef = collection(db, 'weapons')
         const queryW = query(weaponRef, orderBy('rarity', 'desc'), orderBy('name'))
         await onSnapshot(queryW, (snapShot) => {
             snapShot.forEach(weapon => {
-                setWeaponData(prev => [...prev, weapon.data()])
+                setData(prev => [...prev, weapon.data()])
             })
         }, () => setError('Error loading Weapons Data. Try again later.'))
 
         setLoading(false)
     }
 
-    if (loading) {
-        return <Loading />
-    }
-
-    if (error) {
-        return <Error message={error} />
-    }
+    if (loading) return <Loading />
+    if (error) return <Error message={error} />
 
     return (
         <div className='weapons__container'>
             <Container
                 title={'Weapons'}
-                searchInput={searchWeap}
-                searchInputHandler={() => search(weaponData, setSearched, searchWeap.current.value)}
+                searchInput={searchKeyword}
+                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value)}
                 searchPlaceholder={'Search for Weapon Name...'}
+                setSort={setToggleAsc}
+                order={isAsc}
                 gridData={
-                    weaponData && searchedWeap.length === 0 ?
-                        <RenderWeapon arr={weaponData} limit={displayLimit} />
+                    data && searchedData.length === 0 ?
+                        <RenderWeapon arr={data} limit={displayLimit} />
                         :
-                        <RenderWeapon arr={searchedWeap} limit={displayLimit} />
+                        <RenderWeapon arr={searchedData} limit={displayLimit} />
                 }
             />
             {
-                !searchedWeap.length > 0 ?
-                    weaponData.length > 0 && displayLimit < weaponData.length &&
-                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                !searchedData.length > 0 ?
+                    data.length > 0 && displayLimit < data.length &&
+                    <LoadMore onclick={setDisplayLimit} />
                     :
-                    searchedWeap.length > 0 && displayLimit < searchedWeap.length &&
-                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                    searchedData.length > 0 && displayLimit < searchedData.length &&
+                    <LoadMore onclick={setDisplayLimit} />
             }
         </div>
     )

@@ -22,7 +22,7 @@ const ViewCharacter = () => {
             nav('/Error', { replace: true });
         setName(name);
 
-        active(`Character - ${name}`, 'Characters');
+        active(`Character - ${name}`, 'characters');
     }, [])
 
     async function getChar(character) {

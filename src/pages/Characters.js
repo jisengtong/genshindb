@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
+import { useStates } from '../components/useStates'
+
 import search from '../functions/search'
+import sortData from '../functions/sortData'
 
 import Error from '../components/Error'
 import Loading from '../components/Loading'
 import LoadMore from '../components/LoadMore'
-import active from '../functions/active'
 import Container from '../components/Container'
 
 const RenderChar = ({ arr, limit }) => {
@@ -39,19 +41,21 @@ const RenderChar = ({ arr, limit }) => {
 }
 
 const Character = () => {
-    const [charData, setCharData] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [searchedChar, setSearched] = useState([])
-    const [error, setError] = useState('')
-    const [displayLimit, setDisplayLimit] = useState(30);
-    const searchChar = useRef('')
+    const [loading, setLoading, error, setError, data, setData, searchedData,
+        setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
+        isFirstRender, searchKeyword] = useStates("Characters","characters")
 
     useEffect(() => {
         setLoading(true)
         getCharData()
-
-        active("Characters", 'Characters')
     }, [])
+
+    useEffect(() => {
+        if (!isFirstRender) {
+            sortData(isAsc, data, 'rarity', setData)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAsc])
 
     async function getCharData() {
         const ref = collection(db, 'characters')
@@ -59,45 +63,39 @@ const Character = () => {
 
         await onSnapshot(queryC, (snapShot) => {
             snapShot.forEach(char => {
-                setCharData(prev => [...prev, char.data()]);
+                setData(prev => [...prev, char.data()]);
             })
-        },
-            () => {
-                setError('Error loading Character Data. Try Again Later.')
-            }
-        )
+        }, () => setError('Error loading Character Data. Try Again Later.'))
+
         setLoading(false);
     }
 
-    if (loading) {
-        return <Loading />
-    }
-
-    if (error) {
-        return <Error message={error} />
-    }
+    if (loading) return <Loading />
+    if (error) return <Error message={error} />
 
     return (
         <div className='characters__container'>
             <Container
                 title={'Game Characters'}
-                searchInput={searchChar}
-                searchInputHandler={() => search(charData, setSearched, searchChar.current.value)}
+                searchInput={searchKeyword}
+                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value)}
                 searchPlaceholder={'Search for Character Name...'}
+                setSort={setToggleAsc}
+                order={isAsc}
                 gridData={
-                    charData.length > 0 && searchedChar.length === 0 ?
-                        <RenderChar arr={charData} limit={displayLimit} />
+                    data.length > 0 && searchedData.length === 0 ?
+                        <RenderChar arr={data} limit={displayLimit} />
                         :
-                        <RenderChar arr={searchedChar} limit={displayLimit} />
+                        <RenderChar arr={searchedData} limit={displayLimit} />
                 }
             />
             {
-                !searchedChar.length > 0 ?
-                    charData.length > 0 && displayLimit < charData.length &&
-                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                !searchedData.length > 0 ?
+                    data.length > 0 && displayLimit < data.length &&
+                    <LoadMore onclick={setDisplayLimit} />
                     :
-                    searchedChar.length > 0 && displayLimit < searchedChar.length &&
-                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                    searchedData.length > 0 && displayLimit < searchedData.length &&
+                    <LoadMore onclick={setDisplayLimit} />
             }
         </div>
     )

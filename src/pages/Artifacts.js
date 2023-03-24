@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 import { collection, query, limit, onSnapshot } from 'firebase/firestore'
+import { useStates } from '../components/useStates'
+
 import search from '../functions/search'
 
 import Loading from '../components/Loading'
 import Error from '../components/Error'
-import active from '../functions/active'
 import LoadMore from '../components/LoadMore'
 import Container from '../components/Container'
 
@@ -33,19 +34,21 @@ const RenderArtifacts = ({ arr, limit }) => {
 }
 
 const Artifacts = () => {
-    const [loading, setLoading] = useState(false)
-    const [artifactData, setArtifact] = useState([])
-    const [searchedArti, setSearched] = useState([])
-    const [error, setError] = useState('')
-    const [displayLimit, setDisplayLimit] = useState(30);
-    const searchArti = useRef('')
+    const [loading, setLoading, error, setError, data, setData, searchedData,
+        setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
+        isFirstRender, searchKeyword] = useStates("Artifacts", "artifacts")
 
     useEffect(() => {
         setLoading(true)
         getArtifacts()
-
-        active('Artifacts', 'Artifacts')
     }, [])
+
+    useEffect(() => {
+        if (!isFirstRender) {
+            sortArtifacts()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAsc])
 
     async function getArtifacts() {
         const artifactCollections = collection(db, 'artifacts')
@@ -57,42 +60,50 @@ const Artifacts = () => {
                     aData.push(artifact.data())
                 })
             }
-            setArtifact(aData.sort((a, b) => Number(b.rarity[0]) - Number(a.rarity[0])))
+            setData(aData.sort((a, b) => Number(b.rarity[0]) - Number(a.rarity[0])))
         }, () => {
             setError("Error loading Artifacts Data. Try again later.")
         })
         setLoading(false);
     }
 
-    if (loading) {
-        return <Loading />
+    function sortArtifacts() {
+        let sorted = []
+        if (isAsc) {
+            sorted = data.sort((a, b) => Number(a.rarity[0]) > Number(b.rarity[0]) ? -1 : 1)
+        }
+        if (!isAsc) {
+            sorted = data.sort((a, b) => Number(a.rarity[0]) < Number(b.rarity[0]) ? -1 : 1)
+        }
+        setData(sorted.map(artifact => artifact))
     }
 
-    if (error) {
-        return <Error message={error} />
-    }
+    if (loading) return <Loading />
+    if (error) return <Error message={error} />
 
     return (
         <div className='artifact__container'>
             <Container
                 title={'Artifacts'}
-                searchInput={searchArti}
-                searchInputHandler={() => search(artifactData, setSearched, searchArti.current.value)}
+                searchInput={searchKeyword}
+                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value)}
                 searchPlaceholder={'Search for Artifact Name...'}
+                setSort={() => setToggleAsc(!isAsc)}
+                order={isAsc}
                 gridData={
-                    artifactData && searchedArti.length === 0 ?
-                        <RenderArtifacts arr={artifactData} limit={displayLimit} />
+                    data && searchedData.length === 0 ?
+                        <RenderArtifacts arr={data} limit={displayLimit} />
                         :
-                        <RenderArtifacts arr={searchedArti} limit={displayLimit} />
+                        <RenderArtifacts arr={searchedData} limit={displayLimit} />
                 }
             />
             {
-                !searchedArti.length > 0 ?
-                    artifactData.length > 0 && displayLimit < artifactData.length &&
-                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                !searchedData.length > 0 ?
+                    data.length > 0 && displayLimit < data.length &&
+                    <LoadMore onclick={setDisplayLimit} />
                     :
-                    searchedArti.length > 0 && displayLimit < searchedArti.length &&
-                    <LoadMore onclick={() => setDisplayLimit(prev => prev + 30)} />
+                    searchedData.length > 0 && displayLimit < searchedData.length &&
+                    <LoadMore onclick={setDisplayLimit} />
             }
         </div>
     )

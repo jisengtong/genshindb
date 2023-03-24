@@ -63,7 +63,7 @@ const ViewArtifacts = () => {
         name !== undefined ? getArtifactData(name) : nav('/Error', { replace: true });
         setName(name);
         
-        active(`Artifacts - ${name}`, 'Artifacts')
+        active(`Artifacts - ${name}`, 'artifacts')
     }, [])
 
     async function getArtifactData(artiName) {

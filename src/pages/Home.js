@@ -12,7 +12,7 @@ const Home = () => {
         // updateArtifacts('3.6')
         // updateCharacters('3.6')
         // updateWeapons('3.6')
-        active("Home", 'Home')
+        active("Home", 'home')
     })
 
     return (
