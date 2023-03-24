@@ -77,7 +77,6 @@ const ViewArtifacts = () => {
         }
     }
 
-
     return (
         <div className='artifact__container'>
             <Link to="/Artifacts" id="return" className='flex items-center gap-1 lightcolor transition duration-300 opacity-70 hover:opacity-100 font-semibold w-max'>

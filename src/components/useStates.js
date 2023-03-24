@@ -20,6 +20,6 @@ export const useStates = (docTitle,activeHeader) => {
 
     return [loading, setLoading, error, setError, data, setData,
         searchedData, setSearched, displayLimit, () => setDisplayLimit(prev => prev + 30),
-        isAsc, () => setToggleAsc(!isAsc), isFirstRender, searchKeyword]
+        isAsc, setToggleAsc, isFirstRender, searchKeyword]
         
 }

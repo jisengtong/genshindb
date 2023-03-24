@@ -1,7 +1,7 @@
 import React, { useEffect, } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
+import { collection, query, orderBy, getDocs } from 'firebase/firestore'
 import { useStates } from '../components/useStates'
 
 import search from '../functions/search'
@@ -14,8 +14,7 @@ import Container from '../components/Container'
 
 const RenderChar = ({ arr, limit }) => {
     return (
-        arr
-            .slice(0, limit)
+        arr.slice(0, limit)
             .map((val, key) => {
                 return (
                     <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative`} to={`/ViewCharacter/${val.name}`}
@@ -41,31 +40,34 @@ const RenderChar = ({ arr, limit }) => {
 }
 
 const Character = () => {
-    const [loading, setLoading, error, setError, data, setData, searchedData,
-        setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
-        isFirstRender, searchKeyword] = useStates("Characters","characters")
+    const [loading, setLoading, error, setError, data, setData,
+        searchedData, setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
+        isFirstRender, searchKeyword] = useStates("Characters", "characters")
 
     useEffect(() => {
-        setLoading(true)
         getCharData()
     }, [])
 
     useEffect(() => {
         if (!isFirstRender) {
+            if (searchedData.length > 0) {
+                return sortData(isAsc, searchedData, 'rarity', setSearched)
+            }
             sortData(isAsc, data, 'rarity', setData)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAsc])
 
     async function getCharData() {
+        setLoading(true)
         const ref = collection(db, 'characters')
         const queryC = query(ref, orderBy('rarity', 'desc'), orderBy('name'))
 
-        await onSnapshot(queryC, (snapShot) => {
+        await getDocs(queryC).then(snapShot => {
             snapShot.forEach(char => {
                 setData(prev => [...prev, char.data()]);
             })
-        }, () => setError('Error loading Character Data. Try Again Later.'))
+        }).catch(() => setError('Error loading Character Data. Try Again Later.'))
 
         setLoading(false);
     }
@@ -78,9 +80,9 @@ const Character = () => {
             <Container
                 title={'Game Characters'}
                 searchInput={searchKeyword}
-                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value)}
+                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value, setToggleAsc)}
                 searchPlaceholder={'Search for Character Name...'}
-                setSort={setToggleAsc}
+                setSort={() => setToggleAsc(!isAsc)}
                 order={isAsc}
                 gridData={
                     data.length > 0 && searchedData.length === 0 ?

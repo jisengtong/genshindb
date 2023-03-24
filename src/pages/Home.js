@@ -29,8 +29,8 @@ const Home = () => {
                     banners.map((val, key) => {
                         return (
                             !val.link ?
-                                <Link to={`/${val.name}`} className={`rows relative block py-10 sm:py-14 px-6 rounded-xl group shadow-2xl animation ${val.animationClass && val.animationClass}`} key={key}
-                                    style={{ background: `url(${val.bg})center center/cover no-repeat` }}>
+                                <Link to={`/${val.name}`} className={`rows relative block py-10 sm:py-14 px-6 rounded-xl group shadow-2xl animation`} key={key}
+                                    style={{ background: `url(${val.bg})center center/cover no-repeat`, animationDelay: `${key * 0.1}s` }}>
                                     <div className="overlay absolute inset-0 h-full w-full bg-black bg-opacity-40 rounded-xl transition duration-300 group-hover:bg-opacity-20 z-40"
                                     ></div>
 
@@ -40,8 +40,8 @@ const Home = () => {
                                     </p>
                                 </Link>
                                 :
-                                <a href={val.link} target="_blank" rel="noreferrer nofollower" className={`rows relative block py-10 sm:py-14 px-6 rounded-xl group shadow-2xl animation ${val.animationClass && val.animationClass}`} key={key}
-                                    style={{ background: `url(${val.bg})center center/cover no-repeat` }}>
+                                <a href={val.link} target="_blank" rel="noreferrer nofollower" className={`rows relative block py-10 sm:py-14 px-6 rounded-xl group shadow-2xl animation`} key={key}
+                                    style={{ background: `url(${val.bg})center center/cover no-repeat`, animationDelay: `${key * 0.1}s` }}>
                                     <div className="overlay absolute inset-0 h-full w-full bg-black bg-opacity-40 rounded-xl transition duration-300 group-hover:bg-opacity-20 z-40"
                                     ></div>
 

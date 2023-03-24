@@ -1,4 +1,7 @@
-export default function search(data, setSearched, elem) {
+export default function search(data, setSearched, elem, setToggleAsc) {
+    // Reset sorting order
+    setToggleAsc(true)
+
     window.scrollTo({
         top: 0,
         left: 0,

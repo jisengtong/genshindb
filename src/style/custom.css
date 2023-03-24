@@ -90,3 +90,17 @@ body {
     display: block;
     transform: translate(-4%, -6%);
 }
+
+.grid__card {
+    animation: fade-up .5s forwards ease-in-out;
+    position: relative;
+    top: 30px;
+    opacity: 0;
+}
+
+@keyframes fade-up {
+    100% {
+        top: 0px;
+        opacity: 1;
+    }
+}

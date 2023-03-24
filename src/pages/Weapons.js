@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
+import { collection, query, orderBy, getDocs } from 'firebase/firestore'
 import { useStates } from '../components/useStates'
 
 import search from '../functions/search'
@@ -14,8 +14,7 @@ import Container from '../components/Container'
 
 const RenderWeapon = ({ arr, limit }) => {
     return (
-        arr
-            .slice(0, limit)
+        arr.slice(0, limit)
             .map((val, key) => {
                 return (
                     <Link className={`group rounded-xl bg-[#23252a] shadow-xl text-white relative flex flex-col`} to={`/ViewWeapons/${val.name}`} key={key} data-name={val.name} title={val.name}>
@@ -39,30 +38,34 @@ const RenderWeapon = ({ arr, limit }) => {
 }
 
 const Weapons = () => {
-    const [loading, setLoading, error, setError, data, setData, searchedData,
-        setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
+    const [loading, setLoading, error, setError, data, setData,
+        searchedData, setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
         isFirstRender, searchKeyword] = useStates("Weapons", "weapons")
 
     useEffect(() => {
-        setLoading(true)
         getWeaponData()
     }, [])
 
     useEffect(() => {
         if (!isFirstRender) {
+            if (searchedData.length > 0) {
+                return sortData(isAsc, searchedData, 'rarity', setSearched)
+            }
             sortData(isAsc, data, 'rarity', setData)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAsc])
 
     async function getWeaponData() {
+        setLoading(true)
         const weaponRef = collection(db, 'weapons')
         const queryW = query(weaponRef, orderBy('rarity', 'desc'), orderBy('name'))
-        await onSnapshot(queryW, (snapShot) => {
+
+        await getDocs(queryW).then(snapShot => {
             snapShot.forEach(weapon => {
                 setData(prev => [...prev, weapon.data()])
             })
-        }, () => setError('Error loading Weapons Data. Try again later.'))
+        }).catch(() => setError('Error loading Weapons Data. Try again later.'))
 
         setLoading(false)
     }
@@ -75,9 +78,9 @@ const Weapons = () => {
             <Container
                 title={'Weapons'}
                 searchInput={searchKeyword}
-                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value)}
+                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value, setToggleAsc)}
                 searchPlaceholder={'Search for Weapon Name...'}
-                setSort={setToggleAsc}
+                setSort={() => setToggleAsc(!isAsc)}
                 order={isAsc}
                 gridData={
                     data && searchedData.length === 0 ?

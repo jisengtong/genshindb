@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
-import { collection, query, limit, onSnapshot } from 'firebase/firestore'
+import { collection, query, limit, getDocs } from 'firebase/firestore'
 import { useStates } from '../components/useStates'
 
 import search from '../functions/search'
@@ -13,8 +13,7 @@ import Container from '../components/Container'
 
 const RenderArtifacts = ({ arr, limit }) => {
     return (
-        arr
-            .slice(0, limit)
+        arr.slice(0, limit)
             .map((val, key) => {
                 return (
                     <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative`} to={`/ViewArtifacts/${val.name}`} key={key} data-name={val.name} title={val.name}>
@@ -34,12 +33,11 @@ const RenderArtifacts = ({ arr, limit }) => {
 }
 
 const Artifacts = () => {
-    const [loading, setLoading, error, setError, data, setData, searchedData,
-        setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
+    const [loading, setLoading, error, setError, data, setData,
+        searchedData, setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
         isFirstRender, searchKeyword] = useStates("Artifacts", "artifacts")
 
-    useEffect(() => {
-        setLoading(true)
+        useEffect(() => {
         getArtifacts()
     }, [])
 
@@ -51,31 +49,36 @@ const Artifacts = () => {
     }, [isAsc])
 
     async function getArtifacts() {
+        setLoading(true)
         const artifactCollections = collection(db, 'artifacts')
         const artifactQuery = query((artifactCollections), limit(40));
-        await onSnapshot(artifactQuery, (snapShot) => {
+
+        await getDocs(artifactQuery).then(snapShot => {
             let aData = [];
-            if (snapShot) {
-                snapShot.forEach(artifact => {
-                    aData.push(artifact.data())
-                })
-            }
+            snapShot.forEach(artifact => {
+                aData.push(artifact.data())
+            })
             setData(aData.sort((a, b) => Number(b.rarity[0]) - Number(a.rarity[0])))
-        }, () => {
-            setError("Error loading Artifacts Data. Try again later.")
-        })
+        }).catch(() => setError("Error loading Artifacts Data. Try again later."))
+
         setLoading(false);
     }
 
     function sortArtifacts() {
         let sorted = []
+        let copiedData = searchedData.length > 0 ? searchedData : data
+
         if (isAsc) {
-            sorted = data.sort((a, b) => Number(a.rarity[0]) > Number(b.rarity[0]) ? -1 : 1)
+            sorted = copiedData.sort((a, b) => Number(a.rarity[0]) > Number(b.rarity[0]) ? -1 : 1)
         }
         if (!isAsc) {
-            sorted = data.sort((a, b) => Number(a.rarity[0]) < Number(b.rarity[0]) ? -1 : 1)
+            sorted = copiedData.sort((a, b) => Number(a.rarity[0]) < Number(b.rarity[0]) ? -1 : 1)
         }
-        setData(sorted.map(artifact => artifact))
+
+        searchedData.length > 0 ?
+            setSearched(sorted.map(artifact => artifact))
+            :
+            setData(sorted.map(artifact => artifact))
     }
 
     if (loading) return <Loading />
@@ -86,7 +89,7 @@ const Artifacts = () => {
             <Container
                 title={'Artifacts'}
                 searchInput={searchKeyword}
-                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value)}
+                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value,setToggleAsc)}
                 searchPlaceholder={'Search for Artifact Name...'}
                 setSort={() => setToggleAsc(!isAsc)}
                 order={isAsc}
