@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/genshindb/static/css/main.00300282.css",
-    "main.js": "/genshindb/static/js/main.3abf36b1.js",
+    "main.css": "/genshindb/static/css/main.95fd4165.css",
+    "main.js": "/genshindb/static/js/main.ea9d3222.js",
     "index.html": "/genshindb/index.html",
-    "main.00300282.css.map": "/genshindb/static/css/main.00300282.css.map",
-    "main.3abf36b1.js.map": "/genshindb/static/js/main.3abf36b1.js.map"
+    "main.95fd4165.css.map": "/genshindb/static/css/main.95fd4165.css.map",
+    "main.ea9d3222.js.map": "/genshindb/static/js/main.ea9d3222.js.map"
   },
   "entrypoints": [
-    "static/css/main.00300282.css",
-    "static/js/main.3abf36b1.js"
+    "static/css/main.95fd4165.css",
+    "static/js/main.ea9d3222.js"
   ]
 }
