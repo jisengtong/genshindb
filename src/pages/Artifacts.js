@@ -16,7 +16,7 @@ const RenderArtifacts = ({ arr, limit }) => {
         arr.slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative`} to={`/ViewArtifacts/${val.name}`} key={key} data-name={val.name} title={val.name}>
+                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/ViewArtifacts/${val.name}`} key={key} data-name={val.name} title={val.name}>
                         <div className={`icon relative ${val.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-t-xl`}>
                             <div className="w-1/2 absolute inset-0 h-full bg-[#ae92d6] z-0 rounded-tl-xl">
                             </div>
@@ -37,7 +37,7 @@ const Artifacts = () => {
         searchedData, setSearched, displayLimit, setDisplayLimit, isAsc, setToggleAsc,
         isFirstRender, searchKeyword] = useStates("Artifacts", "artifacts")
 
-        useEffect(() => {
+    useEffect(() => {
         getArtifacts()
     }, [])
 
@@ -75,10 +75,8 @@ const Artifacts = () => {
             sorted = copiedData.sort((a, b) => Number(a.rarity[0]) < Number(b.rarity[0]) ? -1 : 1)
         }
 
-        searchedData.length > 0 ?
-            setSearched(sorted.map(artifact => artifact))
-            :
-            setData(sorted.map(artifact => artifact))
+        searchedData.length > 0 && setSearched(sorted.map(artifact => artifact))
+        setData(sorted.map(artifact => artifact))
     }
 
     if (loading) return <Loading />
@@ -89,16 +87,11 @@ const Artifacts = () => {
             <Container
                 title={'Artifacts'}
                 searchInput={searchKeyword}
-                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value,setToggleAsc)}
+                searchInputHandler={() => search(data, setSearched, searchKeyword.current.value, setToggleAsc)}
                 searchPlaceholder={'Search for Artifact Name...'}
                 setSort={() => setToggleAsc(!isAsc)}
                 order={isAsc}
-                gridData={
-                    data && searchedData.length === 0 ?
-                        <RenderArtifacts arr={data} limit={displayLimit} />
-                        :
-                        <RenderArtifacts arr={searchedData} limit={displayLimit} />
-                }
+                gridData={<RenderArtifacts arr={data.length > 0 && searchedData.length === 0 ? data : searchedData} limit={displayLimit} />}
             />
             {
                 !searchedData.length > 0 ?

@@ -12,12 +12,18 @@ import Loading from '../components/Loading'
 import LoadMore from '../components/LoadMore'
 import Container from '../components/Container'
 
+const characterFilters = {
+    element: ['Cryo', 'Hydro', 'Pyro', 'Geo', 'Dendro', 'Anemo', 'Electro'],
+    rarity: [5, 4],
+    weaponType: ['Sword', 'Polearm', 'Catalyst', 'Claymore', 'Bow']
+}
+
 const RenderChar = ({ arr, limit }) => {
     return (
         arr.slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative`} to={`/ViewCharacter/${val.name}`}
+                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/ViewCharacter/${val.name}`}
                         key={key}
                         data-name={val.name}
                         title={val.name}>
@@ -50,9 +56,7 @@ const Character = () => {
 
     useEffect(() => {
         if (!isFirstRender) {
-            if (searchedData.length > 0) {
-                return sortData(isAsc, searchedData, 'rarity', setSearched)
-            }
+            searchedData.length > 0 && sortData(isAsc, searchedData, 'rarity', setSearched)
             sortData(isAsc, data, 'rarity', setData)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -67,7 +71,7 @@ const Character = () => {
             snapShot.forEach(char => {
                 setData(prev => [...prev, char.data()]);
             })
-        }).catch(() => setError('Error loading Character Data. Try Again Later.'))
+        }).catch(() => setError('Error loading Character Data. Refresh webpage and try again.'))
 
         setLoading(false);
     }
@@ -84,12 +88,7 @@ const Character = () => {
                 searchPlaceholder={'Search for Character Name...'}
                 setSort={() => setToggleAsc(!isAsc)}
                 order={isAsc}
-                gridData={
-                    data.length > 0 && searchedData.length === 0 ?
-                        <RenderChar arr={data} limit={displayLimit} />
-                        :
-                        <RenderChar arr={searchedData} limit={displayLimit} />
-                }
+                gridData={<RenderChar arr={data.length > 0 && searchedData.length === 0 ? data : searchedData} limit={displayLimit} />}
             />
             {
                 !searchedData.length > 0 ?
@@ -102,5 +101,4 @@ const Character = () => {
         </div>
     )
 }
-
 export default Character

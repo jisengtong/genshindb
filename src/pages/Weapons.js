@@ -17,7 +17,7 @@ const RenderWeapon = ({ arr, limit }) => {
         arr.slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group rounded-xl bg-[#23252a] shadow-xl text-white relative flex flex-col`} to={`/ViewWeapons/${val.name}`} key={key} data-name={val.name} title={val.name}>
+                    <Link className={`group rounded-xl bg-[#23252a] shadow-xl text-white relative flex flex-col grid__card`} to={`/ViewWeapons/${val.name}`} key={key} data-name={val.name} title={val.name}>
                         <div className="weap_rarity absolute top-3 left-3 rounded-full p-1.5 bg-black/50 w-7 h-7 sm:w-8 sm:h-8 z-40 flex items-center justify-center">
                             {val.rarity}
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
@@ -48,9 +48,7 @@ const Weapons = () => {
 
     useEffect(() => {
         if (!isFirstRender) {
-            if (searchedData.length > 0) {
-                return sortData(isAsc, searchedData, 'rarity', setSearched)
-            }
+            searchedData.length > 0 && sortData(isAsc, searchedData, 'rarity', setSearched)
             sortData(isAsc, data, 'rarity', setData)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,12 +80,7 @@ const Weapons = () => {
                 searchPlaceholder={'Search for Weapon Name...'}
                 setSort={() => setToggleAsc(!isAsc)}
                 order={isAsc}
-                gridData={
-                    data && searchedData.length === 0 ?
-                        <RenderWeapon arr={data} limit={displayLimit} />
-                        :
-                        <RenderWeapon arr={searchedData} limit={displayLimit} />
-                }
+                gridData={<RenderWeapon arr={data.length > 0 && searchedData.length === 0 ? data : searchedData} limit={displayLimit} />}
             />
             {
                 !searchedData.length > 0 ?
