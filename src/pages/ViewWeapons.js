@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
-import CollapsableParagraph from '../components/CollapsableParagraph.js'
-import DataVersion from '../components/DataVersion'
+import CollapsableParagraph from '../components/ViewWeapons/CollapsableParagraph'
+import DataVersion from '../components/Details/DataVersion'
 import active from '../functions/active'
 
 const ViewWeapons = () => {
@@ -18,7 +18,7 @@ const ViewWeapons = () => {
     useEffect(() => {
         name !== undefined ? getWeaponData(name) : nav('/Error', { replace: true });
         setWeaponName(name);
-        active(`Weapon - ${name}`, 'weapons')
+        active(`${name}`, 'weapons')
     }, [])
 
     async function getWeaponData(name) {
@@ -61,7 +61,7 @@ const ViewWeapons = () => {
                 <span className="text-xl">Return to Weapons</span>
             </Link>
             <h1 className="page__title lightcolor text-4xl font-bold mt-4 text-center sm:text-left">
-                Weapon - {weaponName}
+                {weaponName}
             </h1>
             {
                 weaponData &&

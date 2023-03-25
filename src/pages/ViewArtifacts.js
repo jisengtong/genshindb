@@ -3,7 +3,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import DataVersion from '../components/DataVersion'
+import DataVersion from '../components/Details/DataVersion'
 import active from '../functions/active'
 
 import Plume from '../images/artifacts/Plume.png'
@@ -63,7 +63,7 @@ const ViewArtifacts = () => {
         name !== undefined ? getArtifactData(name) : nav('/Error', { replace: true });
         setName(name);
         
-        active(`Artifacts - ${name}`, 'artifacts')
+        active(`${name}`, 'artifacts')
     }, [])
 
     async function getArtifactData(artiName) {
@@ -86,7 +86,7 @@ const ViewArtifacts = () => {
                 <span className="text-xl">Return to Artifacts</span>
             </Link>
             <h1 className="page__title lightcolor text-4xl font-bold text-center sm:text-left mt-4">
-                Artifacts - {artifactName}
+                {artifactName}
             </h1>
 
             {

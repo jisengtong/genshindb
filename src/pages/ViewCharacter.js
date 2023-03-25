@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { getDoc, doc } from "firebase/firestore"
 import { getDownloadURL, ref } from 'firebase/storage'
 import { db, storage } from '../firebase'
-import Loading from '../components/Loading'
+import Loading from '../components/General/Loading'
 import active from '../functions/active'
 
 const ViewCharacter = () => {
@@ -22,7 +22,7 @@ const ViewCharacter = () => {
             nav('/Error', { replace: true });
         setName(name);
 
-        active(`Character - ${name}`, 'characters');
+        active(`${name}`, 'characters');
     }, [])
 
     async function getChar(character) {
@@ -61,7 +61,7 @@ const ViewCharacter = () => {
                 <span className="text-xl">Return to Characters</span>
             </Link>
             <h1 className="page__title lightcolor text-4xl font-bold mt-4 text-center sm:text-left">
-                Character - {charName}
+                {charName}
             </h1>
             {
                 loading &&

@@ -7,9 +7,9 @@ import { useStates } from '../components/useStates'
 import search from '../functions/search'
 import sortData from '../functions/sortData'
 
-import Error from '../components/Error'
-import Loading from '../components/Loading'
-import LoadMore from '../components/LoadMore'
+import Error from '../components/General/Error'
+import Loading from '../components/General/Loading'
+import LoadMore from '../components/General/LoadMore'
 import Container from '../components/Container'
 
 const RenderWeapon = ({ arr, limit }) => {

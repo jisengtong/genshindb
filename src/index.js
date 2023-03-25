@@ -8,10 +8,10 @@ import {
 import './style/style.css';
 import './style/custom.css'
 
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './components/General/ScrollToTop';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Error from './components/Error';
+import Error from './components/General/Error';
 
 import Characters from './pages/Characters'
 import ViewCharacter from './pages/ViewCharacter';

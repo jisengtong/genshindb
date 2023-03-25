@@ -6,9 +6,9 @@ import { useStates } from '../components/useStates'
 
 import search from '../functions/search'
 
-import Loading from '../components/Loading'
-import Error from '../components/Error'
-import LoadMore from '../components/LoadMore'
+import Loading from '../components/General/Loading'
+import Error from '../components/General/Error'
+import LoadMore from '../components/General/LoadMore'
 import Container from '../components/Container'
 
 const RenderArtifacts = ({ arr, limit }) => {
