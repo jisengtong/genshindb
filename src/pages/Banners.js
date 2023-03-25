@@ -73,12 +73,15 @@ const Banners = () => {
     const collectionRef = collection(db, 'wishes')
     try {
       const banners = await getDocs(collectionRef)
+      let bannerHistories = []
+
       banners.forEach(banner => {
         if (banner.id === process.env.REACT_APP_CURRENT_BANNER) {
           setBanner({ id: banner.id, ...banner.data() })
         }
-        setBannerHistory(prev => [...prev, { id: banner.id, version: banner.data().version }])
+        bannerHistories.push({ id: banner.id, version: banner.data().version })
       })
+      setBannerHistory(bannerHistories)
     } catch (error) {
       setError(error.message)
     } finally {
@@ -90,13 +93,12 @@ const Banners = () => {
     const docRef = doc(db, 'wishes', event.target.value)
     try {
       const banner = await getDoc(docRef)
-      if (banner.id === process.env.REACT_APP_CURRENT_BANNER) {
+      if (banner.id === process.env.REACT_APP_CURRENT_BANNER || !banner.exists()) {
         setBHistory({})
         return
       }
-      if (banner.exists()) {
-        setBHistory(banner.data())
-      }
+
+      setBHistory(banner.data())
     } catch (error) {
       setError(error.message)
     }

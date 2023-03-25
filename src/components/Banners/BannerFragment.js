@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import useFirstRender from '../../functions/useFirstRender'
 import React from 'react'
 import Lists from './Lists'
 import Arrows from './Arrows'
 import Error from '../General/Error'
 
 const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLeftUS, corpa, startYMD, startHMS, endYMD, endHMS }) => {
+    const isFirstRender = useFirstRender()
     const [index, setIndex] = useState(0)
+
     const totalIndex = bannerData?.featured?.big?.length - 1 || 0
     let bannerRefs = bannerData?.featured?.big?.map(() => React.createRef())
+
+    useEffect(() => {
+        if(!isFirstRender){
+            setIndex(0)
+            bannerRefs[0].current.parentNode.scrollLeft = 0
+        }
+    }, [bannerData])
 
     const handleSlideBanner = (action) => {
         let currentIndex = index

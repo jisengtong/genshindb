@@ -60,9 +60,11 @@ const Weapons = () => {
         const queryW = query(weaponRef, orderBy('rarity', 'desc'), orderBy('name'))
 
         await getDocs(queryW).then(snapShot => {
+            let weapons = []
             snapShot.forEach(weapon => {
-                setData(prev => [...prev, weapon.data()])
+                weapons.push(weapon.data())
             })
+            setData(weapons)
         }).catch(() => setError('Error loading Weapons Data. Try again later.'))
 
         setLoading(false)

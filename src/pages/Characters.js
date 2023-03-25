@@ -68,9 +68,11 @@ const Character = () => {
         const queryC = query(ref, orderBy('rarity', 'desc'), orderBy('name'))
 
         await getDocs(queryC).then(snapShot => {
+            let characters = []
             snapShot.forEach(char => {
-                setData(prev => [...prev, char.data()]);
+                characters.push(char.data())
             })
+            setData(characters);
         }).catch(() => setError('Error loading Character Data. Refresh webpage and try again.'))
 
         setLoading(false);
