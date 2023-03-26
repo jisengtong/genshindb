@@ -43,7 +43,8 @@ const Artifacts = () => {
 
     useEffect(() => {
         if (!isFirstRender) {
-            sortArtifacts()
+            searchedData.length > 0 && sortArtifacts(isAsc, searchedData, setSearched)
+            sortArtifacts(isAsc, data, setData)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAsc])
@@ -64,19 +65,16 @@ const Artifacts = () => {
         setLoading(false);
     }
 
-    function sortArtifacts() {
+    function sortArtifacts(order, data, setData) {
         let sorted = []
-        let copiedData = searchedData.length > 0 ? searchedData : data
 
-        if (isAsc) {
-            sorted = copiedData.sort((a, b) => Number(a.rarity[0]) > Number(b.rarity[0]) ? -1 : 1)
+        if (order) {
+            sorted = data.sort((a, b) => Number(b.rarity[0]) - Number(a.rarity[0]))
         }
-        if (!isAsc) {
-            sorted = copiedData.sort((a, b) => Number(a.rarity[0]) < Number(b.rarity[0]) ? -1 : 1)
+        if (!order) {
+            sorted = data.sort((a, b) => Number(a.rarity[0]) - Number(b.rarity[0]))
         }
-
-        searchedData.length > 0 && setSearched(sorted.map(artifact => artifact))
-        setData(sorted.map(artifact => artifact))
+        setData([...sorted])
     }
 
     if (loading) return <Loading />

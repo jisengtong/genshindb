@@ -48,7 +48,7 @@ const ViewCharacter = () => {
             } else {
                 nav('/Characters', { replace: true })
             }
-        }).catch(e => console.log('404'))
+        }).catch(() => console.log('404'))
         setLoading(false)
     }
 
