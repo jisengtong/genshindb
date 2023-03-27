@@ -47,7 +47,7 @@ const ImageSlider = ({ title, imageData }) => {
         <div className="mt-6">
             {title && <p className='mb-4 lightcolor text-xl font-bold'>{title} {imageData[index].title && imageData[index].title}</p>}
             <div className="relative group">
-                <div className="absolute px-4 w-full hidden sm:flex justify-between items-center top-[50%] translate-y-[-50%] z-10 transition duration-500 opacity-30 group-hover:opacity-90">
+                <div className="absolute px-4 w-full hidden sm:flex justify-between items-center top-[50%] translate-y-[-50%] z-10 transition duration-500 opacity-30 group-hover:opacity-100">
                     <Arrows
                         className={"rotate-180 text-white p-1 sm:p-2 bg-black rounded-lg transition duration-300 hover:bg-black/70"}
                         onClick={() => handleSlideImage("PREVIOUS")}
@@ -61,7 +61,7 @@ const ImageSlider = ({ title, imageData }) => {
                     {imageData.map((banners, key) => {
                         return (
                             <div className="w-full flex-shrink-0" key={key} ref={imageRefs[key]}>
-                                <img src={banners.src || banners.url || banners} alt={banners.name || "image"} className="rounded-lg" />
+                                <img src={banners.src || banners.url || banners} alt={banners.name || "image"} className="rounded-lg mx-auto" />
                             </div>
                         )
                     })}
@@ -77,11 +77,12 @@ const ImageSlider = ({ title, imageData }) => {
                 {[...Array(imageData.length || 0).keys()].map((buttons, key) => {
                     return (
                         <button
-                            className={`p-1.5 sm:p-2 rounded-full transition duration-300 ${index === buttons ? 'bg-gray-600' : 'bg-gray-300 hover:bg-gray-500'}`}
+                            className={`p-1.5 sm:p-2 rounded-full transition duration-300 ${index === buttons ? 'bg-gray-700' : 'bg-gray-300 hover:bg-gray-500'}`}
                             aria-label="navigate images"
                             onClick={() => scrollImage(buttons)}
                             data-index={key}
-                            key={key}>
+                            key={key}
+                            disabled={index === buttons}>
                         </button>)
                 })}
             </div>

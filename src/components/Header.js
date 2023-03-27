@@ -39,7 +39,7 @@ const Header = () => {
     }
 
     return (
-        <header className='sticky top-0 flex justify-between flex-col md:flex-row md:items-center gap-2 font-bold py-6 text-lg bg-[#282c36] shadow-2xl shadow-black/40 rounded-xl px-4 mt-4 mb-10 ' style={{ zIndex: '150' }}>
+        <header className='sticky top-0 flex justify-between flex-col md:flex-row md:items-center gap-2 font-bold py-6 text-lg darkblue shadow-2xl shadow-black/40 rounded-xl px-4 mt-4 mb-10 ' style={{ zIndex: '150' }}>
             <img src={Logo} alt="web_logo" className='max-w-[200px] w-full' />
             <button id="navToggler" className='absolute right-6 top-2 md:hidden lightcolor outline-none p-4' onClick={() => setToggle(!toggled)}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -61,7 +61,7 @@ const Header = () => {
                 </ul>
             </nav>
 
-            <button className={`fixed bottom-10 right-8 p-4 rounded-xl bg-[#282c36] lightcolor outline-none z-50 ${displayTop ? 'block' : 'hidden'}`}
+            <button className={`fixed bottom-10 right-8 p-4 rounded-xl darkblue lightcolor outline-none z-50 ${displayTop ? 'block' : 'hidden'}`}
                 onClick={() => document.documentElement.scrollTop = 0}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />

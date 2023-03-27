@@ -3,9 +3,9 @@ import Lists from './Lists'
 import Error from '../General/Error'
 import ImageSlider from '../ImageSlider/ImageSlider'
 
-const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLeftUS, corpa, startYMD, startHMS, endYMD, endHMS }) => {
+const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLeftUS, corpa, startDate, endDate }) => {
     return (
-        <div className="mt-8 banner__detail max-w-screen-lg mx-auto p-8 bg-[#282C36] rounded-xl shadow-xl">
+        <div className="mt-8 banner__detail max-w-screen-lg mx-auto p-8 darkblue rounded-xl shadow-xl">
             {Object.keys(bannerData).length > 0 ?
                 <>
                     <span className="text-2xl underline">Phase: {bannerData.version} {bannerData.id !== process.env.REACT_APP_CURRENT_BANNER && <span className="font-bold">(Ended)</span>}</span>
@@ -15,8 +15,8 @@ const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLe
                                 <li> {TimeLeftAsia} {"(Asia/TW/HK Server)"} {msLeftAsia < 1000 && '-Ended'}</li>
                                 <li> {TimeLeftUS} {"(NA/EU Server)"} {msLeftUS < 1000 && '-Ended'}</li>
                             </ul>
-                        </span>}
-
+                        </span>
+                    }
                     <ImageSlider
                         title={"Featured Banners: "}
                         imageData={bannerData.featured.big}
@@ -28,7 +28,7 @@ const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLe
                             <p className="lightcolor text-xl sm:text-2xl">※ Banner Details</p>
                             <div className="mt-2">
                                 <p className='text-lg'><span className="font-bold">Duration:</span> <br />
-                                    <span className="block">{startYMD} - {startHMS}</span> -- <span className="block">{endYMD} - {endHMS}</span>
+                                    <span className="block">{startDate}</span> -- <span className="block">{endDate}</span>
                                 </p>
                             </div>
                             <Lists title={"Featured 5* Characters and Weapons:"} data={bannerData.featured.big} />

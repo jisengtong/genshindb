@@ -68,12 +68,10 @@ const Artifacts = () => {
     function sortArtifacts(order, data, setData) {
         let sorted = []
 
-        if (order) {
+        order ?
             sorted = data.sort((a, b) => Number(b.rarity[0]) - Number(a.rarity[0]))
-        }
-        if (!order) {
+            :
             sorted = data.sort((a, b) => Number(a.rarity[0]) - Number(b.rarity[0]))
-        }
         setData([...sorted])
     }
 
