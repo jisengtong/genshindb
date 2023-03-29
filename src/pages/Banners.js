@@ -25,6 +25,7 @@ const Banners = () => {
   const [bannerData, setBanner] = useState({})
   const [bHistoryData, setBHistory] = useState({})
   const [bannerHistory, setBannerHistory] = useState([])
+  const bannerToShow = Object.keys(bHistoryData).length > 0 ? bHistoryData : bannerData
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -117,8 +118,8 @@ const Banners = () => {
           className="py-3 px-4 cursor-pointer rounded-lg w-full sm:max-w-[320px] darkblue outline-none mt-1 focus:ring-4 text-sm"
           defaultValue={""}
           onChange={handleBannerChange}>
-
           <option value="" disabled>Please Select</option>
+          
           {bannerHistory.map((history, key) => {
             return <option value={history?.id} key={key}>{history?.version} {history?.id === process.env.REACT_APP_CURRENT_BANNER && "(On-going)"}</option>
           })}
@@ -126,7 +127,7 @@ const Banners = () => {
       </div>
 
       <BannerFragment
-        bannerData={Object.keys(bHistoryData).length > 0 ? bHistoryData : bannerData}
+        bannerData={bannerToShow}
         TimeLeftAsia={TimeLeftAsia}
         TimeLeftUS={TimeLeftUS}
         msLeftAsia={msLeftAsia}
