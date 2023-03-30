@@ -84,7 +84,7 @@ const Banners = () => {
       })
       setBannerHistory(bannerHistories)
     } catch (error) {
-      setError(error.message)
+      setError("Unable to retrieve bannner data at the moment. Please try again later.")
     } finally {
       setLoading(false)
     }
@@ -119,7 +119,7 @@ const Banners = () => {
           defaultValue={""}
           onChange={handleBannerChange}>
           <option value="" disabled>Please Select</option>
-          
+
           {bannerHistory.map((history, key) => {
             return <option value={history?.id} key={key}>{history?.version} {history?.id === process.env.REACT_APP_CURRENT_BANNER && "(On-going)"}</option>
           })}
