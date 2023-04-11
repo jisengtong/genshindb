@@ -38,11 +38,13 @@ const Banners = () => {
     active('Banners', 'banners')
     getBanner()
   }, [])
-
+  
   useEffect(() => {
     if (Object.keys(bannerData).length > 0) {
-      setMsAsia(new Date(bannerData.ends).getTime() - new Date().getTime())
-      setMsUS((new Date(bannerData.ends).getTime()) + 43200000 - new Date().getTime())
+      const msLeftAsia = new Date(bannerData.ends).getTime() - new Date().getTime()
+      const msLeftUS = (new Date(bannerData.ends).getTime()) + 43200000 - new Date().getTime()
+      setMsAsia(msLeftAsia <= 0 ? 0 : msLeftAsia)
+      setMsUS(msLeftUS <= 0 ? 0 : msLeftUS)
 
       bannerIntervalAsia.current = setInterval(() => {
         setMsAsia(prev => prev - 1000)

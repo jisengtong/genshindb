@@ -4,13 +4,11 @@ import Error from '../General/Error'
 import ImageSlider from '../ImageSlider/ImageSlider'
 
 const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLeftUS, corpa, startDate, endDate }) => {
-    const endStatus = new Date(startDate.replace('-','')) > new Date() 
-    ? "(Comming Soon)" 
-    :
-    new Date(endDate.replace('-','')) < new Date()
-    ? "(Ended)"
-    :
-    ""
+    const endStatus = new Date(startDate.replace('-', '')) > new Date()
+        ? "(Comming Soon)"
+        : (new Date(endDate.replace('-', '')).getTime() + msLeftUS) < new Date()
+            ? "(Ended)"
+            : ""
 
     return (
         <div className="mt-8 banner__detail max-w-screen-lg mx-auto p-8 darkblue rounded-xl shadow-xl">
