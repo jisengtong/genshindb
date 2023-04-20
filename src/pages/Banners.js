@@ -42,7 +42,7 @@ const Banners = () => {
   useEffect(() => {
     if (Object.keys(bannerData).length > 0) {
       const msLeftAsia = new Date(bannerData.ends).getTime() - new Date().getTime()
-      const msLeftUS = (new Date(bannerData.ends).getTime()) + 43200000 - new Date().getTime()
+      const msLeftUS = (new Date(bannerData.ends).getTime()) + parseInt(process.env.REACT_APP_TIMEZONE_DIFFERNCE) - new Date().getTime()
       setMsAsia(msLeftAsia <= 0 ? 0 : msLeftAsia)
       setMsUS(msLeftUS <= 0 ? 0 : msLeftUS)
 

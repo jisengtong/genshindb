@@ -49,12 +49,14 @@ const ImageSlider = ({ title, imageData }) => {
             <div className="relative group">
                 <div className="absolute px-4 w-full hidden sm:flex justify-between items-center top-[50%] translate-y-[-50%] z-10 transition duration-500 opacity-30 group-hover:opacity-100">
                     <Arrows
-                        className={"rotate-180 text-white p-1 sm:p-2 bg-black rounded-lg transition duration-300 hover:bg-black/70"}
+                        className={"rotate-180 text-white p-1 sm:p-2 bg-black rounded-lg transition duration-300 hover:bg-black/70 disabled:bg-black/30 disabled:cursor-not-allowed"}
                         onClick={() => handleSlideImage("PREVIOUS")}
+                        disabled={index === 0}
                     />
                     <Arrows
-                        className={"text-white p-1 sm:p-2 bg-black rounded-lg transition duration-300 hover:bg-black/70"}
+                        className={"text-white p-1 sm:p-2 bg-black rounded-lg transition duration-300 hover:bg-black/70 disabled:bg-black/30 disabled:cursor-not-allowed"}
                         onClick={() => handleSlideImage("NEXT")}
+                        disabled={index >= imageData.length - 1}
                     />
                 </div>
                 <div className="overflow-x-hidden flex gap-10">

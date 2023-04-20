@@ -4,9 +4,10 @@ import Error from '../General/Error'
 import ImageSlider from '../ImageSlider/ImageSlider'
 
 const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLeftUS, corpa, startDate, endDate }) => {
-    const endStatus = new Date(startDate.replace('-', '')) > new Date()
+
+    const endStatus = new Date(startDate.replace('-', '')).getTime() > new Date().getTime
         ? "(Comming Soon)"
-        : (new Date(endDate.replace('-', '')).getTime() + msLeftUS) < new Date()
+        : (new Date(endDate.replace('-', '')).getTime() + parseInt(process.env.REACT_APP_TIMEZONE_DIFFERNCE)) < new Date().getTime()
             ? "(Ended)"
             : ""
 
@@ -15,14 +16,13 @@ const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLe
             {Object.keys(bannerData).length > 0 ?
                 <>
                     <span className="text-2xl underline">Phase: {bannerData.version} <span className="font-bold">{endStatus}</span></span>
-                    {bannerData.id === process.env.REACT_APP_CURRENT_BANNER &&
+                    {(bannerData.id === process.env.REACT_APP_CURRENT_BANNER && endStatus !== "(Comming Soon)") &&
                         <span className='text-lg sm:text-2xl block mt-4'>Banners Ending in:
                             <ul className="list-disc px-6">
                                 <li> {TimeLeftAsia} {"(Asia/TW/HK Server)"} {msLeftAsia < 1000 && '-Ended'}</li>
                                 <li> {TimeLeftUS} {"(NA/EU Server)"} {msLeftUS < 1000 && '-Ended'}</li>
                             </ul>
-                        </span>
-                    }
+                        </span>}
                     <ImageSlider
                         title={"Featured Banners: "}
                         imageData={bannerData.featured.big}
@@ -47,17 +47,14 @@ const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLe
                         {bannerData?.additionalDetails &&
                             <div className="mb-6">
                                 {bannerData.additionalDetails.map((details, key) => {
-                                    return (
-                                        <li className="mt-2" key={key}>{details}</li>
-                                    )
+                                    return (<li className="mt-2" key={key}>{details}</li>)
                                 })}
                             </div>}
                         <p className="mt-2">For more information on Event Banner Wishes, go to the in-game Wish screen by pressing F3 or via Pause Menu and select Details in the bottom-left corner.<br /> Happy Wishing!</p>
                     </div>
                 </>
                 :
-                <Error message={"Failed to retrieve banner data."} />
-            }
+                <Error message={"Failed to retrieve banner data."} />}
         </div>
     )
 }
