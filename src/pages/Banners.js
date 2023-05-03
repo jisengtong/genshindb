@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { db } from '../firebase'
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 
 import { getYMD_HMS, getIntervalTimeLeft } from '../functions/dates'
 import active from '../functions/active'
@@ -38,7 +38,7 @@ const Banners = () => {
     active('Banners', 'banners')
     getBanner()
   }, [])
-  
+
   useEffect(() => {
     if (Object.keys(bannerData).length > 0) {
       const msLeftAsia = new Date(bannerData.ends).getTime() - new Date().getTime()
@@ -68,10 +68,12 @@ const Banners = () => {
       let bannerHistories = []
 
       banners.forEach(banner => {
+        let bannerData = { id: banner.id, ...banner.data() }
         if (banner.id === process.env.REACT_APP_CURRENT_BANNER) {
-          setBanner({ id: banner.id, ...banner.data() })
+          setBanner(bannerData)
+          return
         }
-        bannerHistories.push({ id: banner.id, version: banner.data().version })
+        bannerHistories.push(bannerData)
       })
       setBannerHistory(bannerHistories)
     } catch (error) {
@@ -82,17 +84,12 @@ const Banners = () => {
   }
 
   const handleBannerChange = async (event) => {
-    const docRef = doc(db, 'wishes', event.target.value)
-    try {
-      const banner = await getDoc(docRef)
-      if (banner.id === process.env.REACT_APP_CURRENT_BANNER || !banner.exists()) {
-        setBHistory({})
-        return
-      }
-      setBHistory(banner.data())
-    } catch (error) {
-      setError(error.message)
+    const bannerId = event.target.value
+    if (bannerId === process.env.REACT_APP_CURRENT_BANNER) {
+      setBHistory({})
+      return
     }
+    setBHistory(bannerHistory.find(banners => banners.id === event.target.value) || {})
   }
 
   if (msLeftAsia < 1000) clearInterval(bannerIntervalAsia.current)
