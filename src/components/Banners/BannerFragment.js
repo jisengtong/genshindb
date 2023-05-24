@@ -4,8 +4,7 @@ import Error from '../General/Error'
 import ImageSlider from '../ImageSlider/ImageSlider'
 
 const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLeftUS, corpa, startDate, endDate }) => {
-
-    const endStatus = new Date(startDate.replace('-', '')).getTime() > new Date().getTime
+    const endStatus = new Date(startDate.replace('-', '')).getTime() > new Date().getTime()
         ? "(Comming Soon)"
         : (new Date(endDate.replace('-', '')).getTime() + parseInt(process.env.REACT_APP_TIMEZONE_DIFFERNCE)) < new Date().getTime()
             ? "(Ended)"

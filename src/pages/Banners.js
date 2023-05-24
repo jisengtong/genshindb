@@ -24,8 +24,8 @@ const Banners = () => {
   const bannerIntervalAsia = useRef()
   const bannerIntervalUS = useRef()
 
-  const startMs = new Date(bHistoryData?.starts || bannerData?.starts) || ""
-  const endMs = new Date(bHistoryData?.ends || bannerData?.ends) || ""
+  const startMs = new Date(bHistoryData?.starts || bannerData?.starts) || 0
+  const endMs = new Date(bHistoryData?.ends || bannerData?.ends) || 0
   const corpa = "Travelers, stock up on weapons and characters in the event wish to make your party stronger in combat!"
 
   const startDate = getYMD_HMS(startMs)
@@ -69,9 +69,9 @@ const Banners = () => {
 
       banners.forEach(banner => {
         let bannerData = { id: banner.id, ...banner.data() }
+
         if (banner.id === process.env.REACT_APP_CURRENT_BANNER) {
           setBanner(bannerData)
-          return
         }
         bannerHistories.push(bannerData)
       })
