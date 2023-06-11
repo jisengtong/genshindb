@@ -8,7 +8,8 @@ import active from '../functions/active'
 
 const ViewCharacter = () => {
     const { name } = useParams()
-    const [charName, setName] = useState('')
+    const charName = name.split('-').join(' ')
+
     const [charData, setData] = useState()
     const [cons, setCons] = useState([])
     const [charElement, setElement] = useState('')
@@ -16,17 +17,11 @@ const ViewCharacter = () => {
     const nav = useNavigate()
 
     useEffect(() => {
-        name !== undefined ?
-            getChar(name)
-            :
-            nav('/Characters', { replace: true });
-        setName(name);
-
+        getChar(charName)
         active(`${name}`, 'characters');
-    }, [])
+    }, [name])
 
     async function getChar(character) {
-        setData()
         setLoading(true)
 
         const charRef = doc(db, 'characters', character)
@@ -67,8 +62,7 @@ const ViewCharacter = () => {
                 loading &&
                 <Loading />
             }
-            {
-                charData &&
+            {charData &&
                 <div className="wrapper mt-8 px-4 sm:px-8 py-8 rounded-xl shadow-2xl mb-10 darkblue">
                     <div className="char__details lg:flex lg:gap-4">
                         <div className="char__card shrink-0 text-white">

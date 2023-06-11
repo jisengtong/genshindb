@@ -1,8 +1,8 @@
-import { useState,useRef,useEffect } from "react"
+import { useState, useRef, useEffect } from "react"
 import active from '../functions/active'
 import useFirstRender from "../functions/useFirstRender"
 
-export const useStates = (docTitle,activeHeader) => {
+export const useStates = (docTitle, activeHeader) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [data, setData] = useState([])
@@ -16,10 +16,14 @@ export const useStates = (docTitle,activeHeader) => {
     useEffect(() => {
         active(docTitle, activeHeader)
     }, [])
-    
 
-    return [loading, setLoading, error, setError, data, setData,
-        searchedData, setSearched, displayLimit, () => setDisplayLimit(prev => prev + 30),
-        isAsc, setToggleAsc, isFirstRender, searchKeyword]
-        
+    return [loading, setLoading,
+        error, setError,
+        data, setData,
+        searchedData, setSearched,
+        displayLimit, () => setDisplayLimit(prev => prev + 30),
+        isAsc, setToggleAsc,
+        isFirstRender,
+        searchKeyword]
+
 }

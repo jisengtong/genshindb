@@ -8,7 +8,8 @@ import active from '../functions/active'
 
 const ViewWeapons = () => {
     const { name } = useParams();
-    const [weaponName, setWeaponName] = useState('');
+    const weaponName = name.split('-').join(' ');
+
     const [weaponData, setWeaponData] = useState();
     const [effect, setEffect] = useState('');
     const nav = useNavigate();
@@ -16,10 +17,9 @@ const ViewWeapons = () => {
     const totalRefinements = [1, 2, 3, 4, 5]
 
     useEffect(() => {
-        name !== undefined ? getWeaponData(name) : nav('/Weapons', { replace: true });
-        setWeaponName(name);
+        getWeaponData(weaponName)
         active(`${name}`, 'weapons')
-    }, [])
+    }, [name])
 
     async function getWeaponData(name) {
         const weaponRef = doc(db, 'weapons', name)

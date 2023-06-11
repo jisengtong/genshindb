@@ -27,9 +27,10 @@ const Title = ({ title }) => {
 }
 
 const ViewArtifacts = () => {
-    const [artifactName, setName] = useState('');
-    const [artiData, setData] = useState();
     const { name } = useParams();
+    const artifactName = name.split('-').join(' ')
+
+    const [artiData, setData] = useState();
     const nav = useNavigate();
 
     const artifactStats = [{
@@ -60,11 +61,9 @@ const ViewArtifacts = () => {
     }]
 
     useEffect(() => {
-        name !== undefined ? getArtifactData(name) : nav('/Artifacts', { replace: true });
-        setName(name);
-        
+        getArtifactData(artifactName)
         active(`${name}`, 'artifacts')
-    }, [])
+    }, [name])
 
     async function getArtifactData(artiName) {
         const artifactRef = doc(db, 'artifacts', artiName)
