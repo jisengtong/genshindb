@@ -35,11 +35,11 @@ root.render(
       <Route path="/" element={<Home />}></Route>
       <Route path="/Home" element={<Home />}></Route>
       <Route path="/Characters" element={<Characters />}></Route>
-      <Route path="/ViewCharacter/:name" element={<ViewCharacter />}></Route>
+      <Route path="/Characters/:name" element={<ViewCharacter />}></Route>
       <Route path="/Weapons" element={<Weapons />}></Route>
-      <Route path="/ViewWeapons/:name" element={<ViewWeapons />}></Route>
+      <Route path="/Weapons/:name" element={<ViewWeapons />}></Route>
       <Route path="/Artifacts" element={<Artifacts />}></Route>
-      <Route path="/ViewArtifacts/:name" element={<ViewArtifacts />}></Route>
+      <Route path="/Artifacts/:name" element={<ViewArtifacts />}></Route>
       <Route path="/Banners" element={<Banners />}></Route>
 
       {/* <Route path="/Update" element={<Update />}></Route> */}

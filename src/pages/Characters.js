@@ -23,7 +23,7 @@ const RenderChar = ({ arr, limit }) => {
         arr.slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/ViewCharacter/${val.name}`}
+                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/Characters/${val.name}`}
                         key={key}
                         data-name={val.name}
                         title={val.name}>

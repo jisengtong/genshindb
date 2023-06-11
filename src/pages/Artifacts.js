@@ -16,7 +16,7 @@ const RenderArtifacts = ({ arr, limit }) => {
         arr.slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/ViewArtifacts/${val.name}`} key={key} data-name={val.name} title={val.name}>
+                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/Artifacts/${val.name}`} key={key} data-name={val.name} title={val.name}>
                         <div className={`icon relative ${val.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-t-xl`}>
                             <div className="w-1/2 absolute inset-0 h-full bg-[#ae92d6] z-0 rounded-tl-xl">
                             </div>

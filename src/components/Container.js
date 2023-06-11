@@ -31,8 +31,6 @@ const Container = ({ titleIcon, title, searchInput, searchInputHandler, searchPl
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-7 gap-4 py-8">
                 {gridData}
             </div>
-
-            
         </div>
     )
 }

@@ -60,7 +60,7 @@ const ViewArtifacts = () => {
     }]
 
     useEffect(() => {
-        name !== undefined ? getArtifactData(name) : nav('/Error', { replace: true });
+        name !== undefined ? getArtifactData(name) : nav('/Artifacts', { replace: true });
         setName(name);
         
         active(`${name}`, 'artifacts')

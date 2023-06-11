@@ -42,7 +42,7 @@ const Banners = () => {
   useEffect(() => {
     if (Object.keys(bannerData).length > 0) {
       const msLeftAsia = new Date(bannerData.ends).getTime() - new Date().getTime()
-      const msLeftUS = (new Date(bannerData.ends).getTime()) + parseInt(process.env.REACT_APP_TIMEZONE_DIFFERNCE) - new Date().getTime()
+      const msLeftUS = new Date(bannerData.ends).getTime() + parseInt(process.env.REACT_APP_TIMEZONE_DIFFERNCE) - new Date().getTime()
       setMsAsia(msLeftAsia <= 0 ? 0 : msLeftAsia)
       setMsUS(msLeftUS <= 0 ? 0 : msLeftUS)
 
@@ -108,9 +108,10 @@ const Banners = () => {
           onChange={handleBannerChange}>
           <option value="" disabled>Please Select</option>
 
-          {bannerHistory.map((history, key) => {
-            return <option value={history?.id} key={key}>{history?.version} {history?.id === process.env.REACT_APP_CURRENT_BANNER && "(On-going)"}</option>
-          })}
+          {bannerHistory.length > 0 &&
+            bannerHistory.map((history, key) => {
+              return <option value={history?.id} key={key}>{history?.version} {history?.id === process.env.REACT_APP_CURRENT_BANNER && "(On-going)"}</option>
+            })}
         </select>
       </div>
 

@@ -19,7 +19,7 @@ const ViewCharacter = () => {
         name !== undefined ?
             getChar(name)
             :
-            nav('/Error', { replace: true });
+            nav('/Characters', { replace: true });
         setName(name);
 
         active(`${name}`, 'characters');

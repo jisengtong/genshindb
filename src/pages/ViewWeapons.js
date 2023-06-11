@@ -16,7 +16,7 @@ const ViewWeapons = () => {
     const totalRefinements = [1, 2, 3, 4, 5]
 
     useEffect(() => {
-        name !== undefined ? getWeaponData(name) : nav('/Error', { replace: true });
+        name !== undefined ? getWeaponData(name) : nav('/Weapons', { replace: true });
         setWeaponName(name);
         active(`${name}`, 'weapons')
     }, [])
