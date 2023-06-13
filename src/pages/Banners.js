@@ -68,7 +68,10 @@ const Banners = () => {
       let bannerHistories = []
 
       banners.forEach(banner => {
-        let bannerData = { id: banner.id, ...banner.data() }
+        let bannerData = {
+          id: banner.id,
+          ...banner.data()
+        }
 
         if (banner.id === process.env.REACT_APP_CURRENT_BANNER) {
           setBanner(bannerData)
