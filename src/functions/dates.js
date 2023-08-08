@@ -3,6 +3,7 @@ export const getYMD_HMS = (ms) => {
 }
 
 export const getIntervalTimeLeft = (ms) => {
+    // Seconds = 1000 ms, minutes = 1000 ms * 60 seconds, hours = 1000 ms * 60 seconds * 60 minutes, days = 1000 ms * 60s * 60m * 24h
     const seconds = Math.floor((ms / 1000) % 60)
     const minutes = Math.floor((ms / 60000) % 60)
     const hours = Math.floor((ms / 3600000) % 24)

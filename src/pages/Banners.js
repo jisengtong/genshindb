@@ -21,18 +21,18 @@ const Banners = () => {
 
   const [msLeftAsia, setMsAsia] = useState(0)
   const [msLeftUS, setMsUS] = useState(0)
+  const TimeLeftAsia = getIntervalTimeLeft(msLeftAsia)
+  const TimeLeftUS = getIntervalTimeLeft(msLeftUS)
+
   const bannerIntervalAsia = useRef()
   const bannerIntervalUS = useRef()
 
   const startMs = new Date(bHistoryData?.starts || bannerData?.starts) || 0
   const endMs = new Date(bHistoryData?.ends || bannerData?.ends) || 0
-  const corpa = "Travelers, stock up on weapons and characters in the event wish to make your party stronger in combat!"
-
   const startDate = getYMD_HMS(startMs)
   const endDate = getYMD_HMS(endMs)
-
-  const TimeLeftAsia = getIntervalTimeLeft(msLeftAsia)
-  const TimeLeftUS = getIntervalTimeLeft(msLeftUS)
+  
+  const corpa = "Travelers, stock up on weapons and characters in the event wish to make your party stronger in combat!"
 
   useEffect(() => {
     active('Banners', 'banners')
@@ -63,6 +63,7 @@ const Banners = () => {
   const getBanner = async () => {
     setLoading(true)
     const collectionRef = collection(db, 'wishes')
+    
     try {
       const banners = await getDocs(collectionRef)
       let bannerHistories = []
@@ -97,6 +98,7 @@ const Banners = () => {
 
   if (msLeftAsia < 1000) clearInterval(bannerIntervalAsia.current)
   if (msLeftUS < 1000) clearInterval(bannerIntervalUS.current)
+
   if (loading) return <Loading />
   if (error) return <Error message={error} />
 
