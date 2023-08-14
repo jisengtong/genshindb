@@ -22,7 +22,7 @@ import ViewWeapons from './pages/ViewWeapons';
 import ViewArtifacts from './pages/ViewArtifacts';
 import Banners from './pages/Banners';
 
-// import Update from './pages/Update';
+import Update from './pages/Update';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -42,7 +42,7 @@ root.render(
       <Route path="/Artifacts/:name" element={<ViewArtifacts />}></Route>
       <Route path="/Banners" element={<Banners />}></Route>
 
-      {/* <Route path="/Update" element={<Update />}></Route> */}
+      <Route path="/Update" element={<Update />}></Route>
     </Routes>
 
     <Footer />
