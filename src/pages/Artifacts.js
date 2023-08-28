@@ -16,15 +16,15 @@ const RenderArtifacts = ({ arr, limit }) => {
         arr.slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/Artifacts/${val.name.split(' ').join('-') }`} key={key} data-name={val.name} title={val.name}>
-                        <div className={`icon relative ${val.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-t-xl`}>
+                    <Link className={`group flex flex-col rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/Artifacts/${val.name.split(' ').join('-') }`} key={key} data-name={val.name} title={val.name}>
+                        <div className={`icon relative ${val.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-t-xl flex-grow`}>
                             <div className="w-1/2 absolute inset-0 h-full bg-[#ae92d6] z-0 rounded-tl-xl">
                             </div>
                             <img src={val.images.flower ? val.images.flower : val.images.circlet} alt="" className='mx-auto rounded-t-xl relative z-30' />
                         </div>
 
                         <div className="artifact__name text-center py-3 px-1">
-                            <p className='group-hover:text-[#6291e9] transition duration-300 text-ellipsis overflow-hidden'>{val.name}</p>
+                            <p className='group-hover:text-[#6291e9] transition duration-300 line-clamp-1'>{val.name}</p>
                         </div>
                     </Link>
                 )

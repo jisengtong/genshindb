@@ -23,7 +23,7 @@ const RenderChar = ({ arr, limit }) => {
         arr.slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group block rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/Characters/${val.name.split(' ').join('-')}`}
+                    <Link className={`group flex flex-col rounded-xl bg-[#23252a] shadow-xl text-white relative grid__card`} to={`/Characters/${val.name.split(' ').join('-')}`}
                         key={key}
                         data-name={val.name}
                         title={val.name}>
@@ -32,11 +32,11 @@ const RenderChar = ({ arr, limit }) => {
                                 <img src={`https://firebasestorage.googleapis.com/v0/b/project1-82261.appspot.com/o/elements%2F${val.element}.png?alt=media&token=4c613456-ba83-4f79-9844-68bba9917c6d`} alt="" className="rounded-full" />
                             </div>
                         }
-                        <div className={`icon relative ${val.rarity === "5" ? 'bg-[#e1872280]' : 'bg-[#ae92d680]'} rounded-t-xl`}>
+                        <div className={`icon relative ${val.rarity === "5" ? 'bg-[#e1872280]' : 'bg-[#ae92d680]'} rounded-t-xl flex-grow`}>
                             <img src={val.images.icon} alt={val.name + ' avatar'} className='mx-auto rounded-t-xl' />
                         </div>
                         <div className="characters__name text-center py-3 px-1">
-                            <p className='group-hover:text-[#6291e9] transition duration-300 text-ellipsis overflow-hidden'>{val.name}</p>
+                            <p className='group-hover:text-[#6291e9] transition duration-300 line-clamp-1'>{val.name}</p>
                         </div>
                     </Link>
                 )
