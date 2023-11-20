@@ -95,7 +95,7 @@ const ViewArtifacts = () => {
                         <div className={`icon relative ${artiData.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-xl self-center md:self-start flex-shrink-0`}>
                             <div className="w-1/2 absolute inset-0 h-full bg-[#ae92d6] z-0 rounded-l-xl">
                             </div>
-                            <img src={artiData.images.flower ? artiData.images.flower : artiData.images.circlet} alt={artifactName + " image"} className='mx-auto rounded-t-xl relative z-30' />
+                                <img src={artiData.images.flower ? artiData.images.flower : artiData.images.circlet} alt={artifactName + " image"} className='mx-auto rounded-t-xl relative z-30 max-w-[300px] w-full text-white' />
                         </div>
                         <div className="artifact__info text-white pt-2">
                             <p className="artifact__name text-3xl font-bold">{artiData.name}</p>
