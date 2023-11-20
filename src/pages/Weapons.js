@@ -17,7 +17,7 @@ const RenderWeapon = ({ arr, limit }) => {
         arr.slice(0, limit)
             .map((val, key) => {
                 return (
-                    <Link className={`group rounded-xl bg-[#23252a] shadow-xl text-white relative flex flex-col grid__card`} to={`/Weapons/${val.name.split(' ').join('-') }`} key={key} data-name={val.name} title={val.name}>
+                    <Link className={`group rounded-xl bg-[#23252a] shadow-xl text-white relative flex flex-col grid__card`} to={`/Weapons/${val.name}`} key={key} data-name={val.name} title={val.name}>
                         <div className="weap_rarity absolute top-3 left-3 rounded-full p-1.5 bg-black/50 w-7 h-7 sm:w-8 sm:h-8 z-40 flex items-center justify-center">
                             {val.rarity}
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">

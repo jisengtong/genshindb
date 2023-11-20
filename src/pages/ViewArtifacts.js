@@ -28,7 +28,7 @@ const Title = ({ title }) => {
 
 const ViewArtifacts = () => {
     const { name } = useParams();
-    const artifactName = name.split('-').join(' ')
+    const artifactName = name
 
     const [artiData, setData] = useState();
     const nav = useNavigate();

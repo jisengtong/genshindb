@@ -8,7 +8,7 @@ import active from '../functions/active'
 
 const ViewWeapons = () => {
     const { name } = useParams();
-    const weaponName = name.split('-').join(' ');
+    const weaponName = name;
 
     const [weaponData, setWeaponData] = useState();
     const [effect, setEffect] = useState('');
