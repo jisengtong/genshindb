@@ -26,7 +26,7 @@ const RenderWeapon = ({ arr, limit }) => {
                         </div>
 
                         <div className={`flex-grow icon relative ${val.rarity >= "4" ? val.rarity === "5" ? 'bg-[#e1872280]' : 'bg-[#ae92d680]' : 'bg-gray-600'} rounded-t-xl ${!val.images.icon && 'flex-grow'}`}>
-                            <img src={val.images.icon} alt="" className='mx-auto rounded-t-xl' />
+                            <img src={val.images.icon} alt={val.name} className='mx-auto rounded-t-xl' />
                         </div>
                         <div className="characters__name text-center py-3 px-1">
                             <p className='group-hover:text-[#6291e9] transition duration-300 line-clamp-1'>{val.name}</p>

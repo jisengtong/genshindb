@@ -79,6 +79,7 @@ const Banners = () => {
         }
         bannerHistories.push(bannerData)
       })
+      bannerHistories = bannerHistories.sort((a, b) => (a.ends > b.ends) ? -1 : 1);
       setBannerHistory(bannerHistories)
     } catch (error) {
       setError("Unable to retrieve bannner data at the moment. Please try again later.")

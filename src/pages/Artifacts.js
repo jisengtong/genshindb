@@ -20,7 +20,7 @@ const RenderArtifacts = ({ arr, limit }) => {
                         <div className={`icon relative ${val.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-t-xl flex-grow`}>
                             <div className="w-1/2 absolute inset-0 h-full bg-[#ae92d6] z-0 rounded-tl-xl">
                             </div>
-                            <img src={val.images.flower ? val.images.flower : val.images.circlet} alt="" className='mx-auto rounded-t-xl relative z-30' />
+                            <img src={val.images.flower ? val.images.flower : val.images.circlet} alt={val.name} className='mx-auto rounded-t-xl relative z-30' />
                         </div>
 
                         <div className="artifact__name text-center py-3 px-1">
