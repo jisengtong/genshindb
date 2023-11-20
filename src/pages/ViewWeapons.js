@@ -68,7 +68,7 @@ const ViewWeapons = () => {
                 <div className="mt-10 max-w-screen-xl mx-auto darkblue p-6 rounded-xl">
                     <div className="weapon__data rounded-xl flex items-start flex-col md:flex-row gap-5">
                         <div className={`self-center md:self-start p-4 rounded-xl weapon__icon shrink-0 ${weaponData.rarity >= "4" ? weaponData.rarity === "5" ? 'bg-[#e1872280]' : 'bg-[#ae92d680]' : 'bg-gray-600'}`}>
-                            <img src={weaponData.images.icon} className="mx-auto md:mx-0 w-[256px]" alt="" />
+                            <img src={weaponData.images.icon} className="mx-auto md:mx-0" alt={weaponName + " image"} />
                         </div>
                         <div className="weapon__details text-white">
                             <p className="weapon__name text-3xl sm:text-4xl font-bold">{weaponData.name}</p>

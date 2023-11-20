@@ -66,7 +66,7 @@ const ViewCharacter = () => {
                 <div className="wrapper mt-8 px-4 sm:px-8 py-8 rounded-xl shadow-2xl mb-10 darkblue">
                     <div className="char__details lg:flex lg:gap-4">
                         <div className="char__card shrink-0 text-white">
-                            <img src={charData.images.cover2} className="w-[350px] mx-auto lg:mx-0" alt={charData.name} />
+                            <img src={charData.images.cover2} className="w-[350px] mx-auto lg:mx-0" alt={charData.name + " Potrait"} />
                         </div>
                         <div className="char__stats text-white mt-6 lg:mt-0">
                             <div className=" shadow overflow-hidden sm:rounded-lg">
@@ -160,7 +160,7 @@ const ViewCharacter = () => {
                                         return (
                                             <div className="cons__rows flex items-center gap-4 flex-col sm:flex-row text-center sm:text-left" key={key}>
                                                 <div className="cons__icon rounded-full p-2 bg-black/50 w-[80px] shrink-0">
-                                                    <img src={val.img} alt="" />
+                                                    <img src={val.img} alt="#" />
                                                 </div>
                                                 <div className="cons__details">
                                                     <p className='cons__name text-white font-bold text-xl'>{val.name}</p>

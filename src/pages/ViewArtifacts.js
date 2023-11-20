@@ -92,10 +92,10 @@ const ViewArtifacts = () => {
                 artiData &&
                 <div className="artifact__details mt-10 max-w-screen-xl mx-auto darkblue p-6 rounded-xl">
                     <div className="artifact__data rounded-xl flex items-start flex-col md:flex-row gap-5">
-                        <div className={`icon relative ${artiData.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-xl self-center md:self-start`}>
+                        <div className={`icon relative ${artiData.rarity.includes('5') ? 'bg-[#e1872280]' : 'bg-gray-600'} rounded-xl self-center md:self-start flex-shrink-0`}>
                             <div className="w-1/2 absolute inset-0 h-full bg-[#ae92d6] z-0 rounded-l-xl">
                             </div>
-                            <img src={artiData.images.flower ? artiData.images.flower : artiData.images.circlet} alt="" className='mx-auto rounded-t-xl relative z-30 w-[306px]' />
+                            <img src={artiData.images.flower ? artiData.images.flower : artiData.images.circlet} alt={artifactName + " image"} className='mx-auto rounded-t-xl relative z-30' />
                         </div>
                         <div className="artifact__info text-white pt-2">
                             <p className="artifact__name text-3xl font-bold">{artiData.name}</p>
@@ -168,7 +168,7 @@ const ViewArtifacts = () => {
                                                         <img src={val.img} alt="" className="" />
                                                     </div>
                                                     <div className="bg-gray-700 rounded-t-lg">
-                                                        <img src={artiData.images[val.name]} className="w-[150px] mx-auto rounded-lg" alt="" />
+                                                        <img src={artiData.images[val.name]} className="w-[150px] mx-auto rounded-lg" alt={artiData[val.name].name + " image"} />
                                                     </div>
                                                     <p className="rounded-b-lg px-2 py-3 text-center">
                                                         {artiData[val.name].name}
