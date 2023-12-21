@@ -3,7 +3,7 @@ import Lists from './Lists'
 import Error from '../General/Error'
 import ImageSlider from '../ImageSlider/ImageSlider'
 
-const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLeftUS, corpa, startDate, endDate }) => {
+const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLeftUS, corpa, startDate, endDate, currentLiveBannerId }) => {
     const endStatus = new Date(startDate.replace('-', '')).getTime() > new Date().getTime()
         ? "(Comming Soon)"
         : (new Date(endDate.replace('-', '')).getTime() + parseInt(process.env.REACT_APP_TIMEZONE_DIFFERNCE)) < new Date().getTime()
@@ -15,7 +15,7 @@ const BannerFragment = ({ bannerData, TimeLeftAsia, TimeLeftUS, msLeftAsia, msLe
             {Object.keys(bannerData).length > 0 ?
                 <>
                     <span className="text-2xl underline">Phase: {bannerData.version} <span className="font-bold">{endStatus}</span></span>
-                    {(bannerData.id === process.env.REACT_APP_CURRENT_BANNER && endStatus !== "(Comming Soon)") &&
+                    {(bannerData.id === currentLiveBannerId && endStatus !== "(Comming Soon)") &&
                         <span className='text-lg sm:text-2xl block mt-4'>Banners Ending in:
                             <ul className="list-disc px-6">
                                 <li> {TimeLeftAsia} {"(Asia/TW/HK Server)"} {msLeftAsia < 1000 && '-Ended'}</li>

@@ -15,7 +15,7 @@ export const banners = [{
     bg: 'https://staticg.sportskeeda.com/editor/2022/03/81dfb-16461722006248-1920.jpg',
     icon: 'https://api.ambr.top/assets/UI/UI_ItemIcon_223.png',
 }, {
-    name: 'Interactive Map',
+    name: 'Interactive Map (External Sources)',
     bg: 'https://cdn.mapgenie.io/images/games/genshin-impact/preview.jpg',
     icon: 'https://gim.appsample.net/markers-v3/o3.png',
     link: 'https://genshin-impact-map.appsample.com/#/',
